@@ -36,28 +36,30 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
 
     public MantenedorAdministrador() throws SQLException {
         initComponents();
-        
-        this.manager = new DAOManager();
-        //oInicio = new MantenedorInicio();
-        
-        TMProductos tmProductos = new TMProductos(manager.getdProductos().getAll());
-        tblProductos.setModel(tmProductos);
-        
-        TMProveedores tmProveedores = new TMProveedores(manager.getdProveedores().getAll());
-        tblProveedores.setModel(tmProveedores);
-        
-        TMEmpleado tmEmpleado = new TMEmpleado(manager.getdEmpleados().getAll());
-        tblIngresarTrabajadorAdministrador.setModel(tmEmpleado);
-        tblEliminarAdministrador.setModel(tmEmpleado);
-        tblActualizarAdministardor.setModel(tmEmpleado);
-        tblBuscarAdministrador.setModel(tmEmpleado);
-        
-        
-        
+
+        try {
+
+            this.manager = new DAOManager();
+            //oInicio = new MantenedorInicio();
+
+            TMProductos tmProductos = new TMProductos(manager.getdProductos().getAll());
+            tblProductos.setModel(tmProductos);
+
+            TMProveedores tmProveedores = new TMProveedores(manager.getdProveedores().getAll());
+            tblProveedores.setModel(tmProveedores);
+
+            TMEmpleado tmEmpleado = new TMEmpleado(manager.getdEmpleados().getAll());
+            
+            actualizarTablaEmpleados();
+
+        } catch (SQLException ex) {
+            JOptionPane.showConfirmDialog(null, "Enciende el Xampp", "Aceptar", JOptionPane.DEFAULT_OPTION);
+            Logger.getLogger(MantenedorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         this.setLocationRelativeTo(null);
     }
 
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -70,7 +72,7 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        tblIngresarTrabajadorAdministrador = new javax.swing.JTable();
+        tblAgregarEmpleado = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -112,11 +114,7 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
         tblBuscarAdministrador = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         txtBuscarTrabajadorAdministrador = new javax.swing.JTextField();
-        btnBuscarTrabajadorAdministrador = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
-        btnActualizarTablaBuscarTrabajadorAdministrador = new javax.swing.JButton();
-        jPanel10 = new javax.swing.JPanel();
-        btnVolverInicioEquino = new javax.swing.JButton();
         jPanel11 = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
@@ -168,23 +166,33 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
         jTabbedPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 3, 14))); // NOI18N
         jTabbedPane1.setForeground(new java.awt.Color(255, 255, 255));
         jTabbedPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabbedPane1MouseClicked(evt);
+            }
+        });
 
         jPanel5.setBackground(new java.awt.Color(124, 99, 111));
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Registrar", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 3, 14))); // NOI18N
+        jPanel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel5MouseClicked(evt);
+            }
+        });
 
-        tblIngresarTrabajadorAdministrador.setBackground(new java.awt.Color(168, 143, 156));
-        tblIngresarTrabajadorAdministrador.setModel(new javax.swing.table.DefaultTableModel(
+        tblAgregarEmpleado.setBackground(new java.awt.Color(168, 143, 156));
+        tblAgregarEmpleado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Nombre", "Rut", "Cargo", "Nivel acceso"
+
             }
         ));
-        jScrollPane4.setViewportView(tblIngresarTrabajadorAdministrador);
+        jScrollPane4.setViewportView(tblAgregarEmpleado);
 
         jPanel3.setBackground(new java.awt.Color(168, 143, 156));
 
@@ -214,7 +222,7 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
             }
         });
 
-        cboNivelAccesoRegistar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Trabajador" }));
+        cboNivelAccesoRegistar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3" }));
 
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/trabajo-en-equipo64.png"))); // NOI18N
@@ -310,6 +318,11 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
 
         jPanel7.setBackground(new java.awt.Color(124, 99, 111));
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Borrar", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 3, 14))); // NOI18N
+        jPanel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel7MouseClicked(evt);
+            }
+        });
 
         tblEliminarAdministrador.setBackground(new java.awt.Color(168, 143, 156));
         tblEliminarAdministrador.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -318,7 +331,7 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         jScrollPane3.setViewportView(tblEliminarAdministrador);
@@ -389,34 +402,31 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("", new javax.swing.ImageIcon(getClass().getResource("/img/borrar25.png")), jPanel7); // NOI18N
 
         jPanel8.setBackground(new java.awt.Color(124, 99, 111));
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Actualizar", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 3, 14))); // NOI18N
+        jPanel8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel8MouseClicked(evt);
+            }
+        });
 
         tblActualizarAdministardor.setBackground(new java.awt.Color(168, 143, 156));
         tblActualizarAdministardor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "ID trabajador", "Nombre Trabajador", "Rut Trabajador", "Cargo Trabajador", "Nivel de Acceso"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
-            };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
             }
-        });
+        ));
         jScrollPane1.setViewportView(tblActualizarAdministardor);
 
         jPanel2.setBackground(new java.awt.Color(168, 143, 156));
@@ -437,7 +447,7 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
 
         jLabel10.setText("ID");
 
-        cboNivelAccesoActualizarAdministrador.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Trabajador", "Administrador" }));
+        cboNivelAccesoActualizarAdministrador.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3" }));
         cboNivelAccesoActualizarAdministrador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboNivelAccesoActualizarAdministradorActionPerformed(evt);
@@ -464,9 +474,9 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
                             .addComponent(jLabel8)
                             .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(33, 33, 33)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtCargoActualizarAdministrador)
-                            .addComponent(cboNivelAccesoActualizarAdministrador, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cboNivelAccesoActualizarAdministrador, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtCargoActualizarAdministrador)))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -481,7 +491,7 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
                             .addComponent(txtIDActualizarTrabajador, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtRutActualizarAdministrador)
                             .addComponent(txtnombreActualizarAdministrador))))
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addGap(10, 10, 10))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel28T, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -572,7 +582,7 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
                 .addGap(23, 23, 23))
         );
 
@@ -580,6 +590,11 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
 
         jPanel6.setBackground(new java.awt.Color(124, 99, 111));
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Buscar", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
+        jPanel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel6MouseClicked(evt);
+            }
+        });
 
         tblBuscarAdministrador.setBackground(new java.awt.Color(168, 143, 156));
         tblBuscarAdministrador.setModel(new javax.swing.table.DefaultTableModel(
@@ -587,41 +602,21 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nombre.", "Rut", "Cargo", "nivel acceso"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
-            };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
             }
-        });
+        ));
         jScrollPane2.setViewportView(tblBuscarAdministrador);
 
         jPanel1.setBackground(new java.awt.Color(168, 143, 156));
 
-        btnBuscarTrabajadorAdministrador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/buscar persona 25.png"))); // NOI18N
-        btnBuscarTrabajadorAdministrador.setText("Buscar");
-        btnBuscarTrabajadorAdministrador.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnBuscarTrabajadorAdministrador.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarTrabajadorAdministradorActionPerformed(evt);
+        txtBuscarTrabajadorAdministrador.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarTrabajadorAdministradorKeyReleased(evt);
             }
         });
 
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/trabajo-en-equipo64.png"))); // NOI18N
-
-        btnActualizarTablaBuscarTrabajadorAdministrador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/boton-actualizar 25.png"))); // NOI18N
-        btnActualizarTablaBuscarTrabajadorAdministrador.setText("Actualizar Tabla");
-        btnActualizarTablaBuscarTrabajadorAdministrador.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnActualizarTablaBuscarTrabajadorAdministrador.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizarTablaBuscarTrabajadorAdministradorActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -629,12 +624,7 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtBuscarTrabajadorAdministrador, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnBuscarTrabajadorAdministrador, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnActualizarTablaBuscarTrabajadorAdministrador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(txtBuscarTrabajadorAdministrador, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
                 .addContainerGap())
@@ -642,18 +632,13 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(txtBuscarTrabajadorAdministrador)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnBuscarTrabajadorAdministrador, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
-                            .addComponent(btnActualizarTablaBuscarTrabajadorAdministrador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(17, 17, 17)
+                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(15, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtBuscarTrabajadorAdministrador, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50))
         );
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -674,42 +659,10 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(80, Short.MAX_VALUE))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("", new javax.swing.ImageIcon(getClass().getResource("/img/buscar persona 25.png")), jPanel6); // NOI18N
-
-        jPanel10.setBackground(new java.awt.Color(124, 99, 111));
-        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Volver", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 3, 36))); // NOI18N
-
-        btnVolverInicioEquino.setBackground(new java.awt.Color(124, 99, 111));
-        btnVolverInicioEquino.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/volver 128.png"))); // NOI18N
-        btnVolverInicioEquino.setBorder(null);
-        btnVolverInicioEquino.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnVolverInicioEquino.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnVolverInicioEquino.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVolverInicioEquinoActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGap(154, 154, 154)
-                .addComponent(btnVolverInicioEquino, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(162, Short.MAX_VALUE))
-        );
-        jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addComponent(btnVolverInicioEquino, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 52, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("", new javax.swing.ImageIcon(getClass().getResource("/img/volver32.png")), jPanel10); // NOI18N
 
         jPanel12.setBackground(new java.awt.Color(124, 99, 111));
 
@@ -803,7 +756,7 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
                     .addComponent(btnAgregar)
                     .addComponent(btnEliminar)
                     .addComponent(btnModificar))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         jPanel14.setBackground(new java.awt.Color(168, 143, 156));
@@ -913,14 +866,6 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
 
         jLabel24.setForeground(new java.awt.Color(255, 255, 255));
         jLabel24.setText("Descripcion");
-
-        jTextField1.setText("jTextField1");
-
-        jTextField2.setText("jTextField1");
-
-        jTextField3.setText("jTextField1");
-
-        jTextField4.setText("jTextField1");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBox1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -1073,7 +1018,7 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1116,26 +1061,9 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnEliminarAdministradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarAdministradorActionPerformed
-
-        Empleado empleado = new Empleado();
-        empleado.setIdEmpleado(Integer.parseInt(txtIDborrarAdministrador.getText()));
-        try {
-            manager.getdEmpleados().delete(empleado);
-        } catch (SQLException ex) {
-            Logger.getLogger(MantenedorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }//GEN-LAST:event_btnEliminarAdministradorActionPerformed
-
-    private void btnBuscarTrabajadorAdministradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarTrabajadorAdministradorActionPerformed
-
-    }//GEN-LAST:event_btnBuscarTrabajadorAdministradorActionPerformed
-
-
-    private void txtCargoTrabajadorRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCargoTrabajadorRegistrarActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtCargoTrabajadorRegistrarActionPerformed
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btnActualizarAdministradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarAdministradorActionPerformed
 
@@ -1146,22 +1074,39 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
         empleado.setRutEmpleado(txtRutActualizarAdministrador.getText());
         empleado.setCargoEmpleado(txtCargoActualizarAdministrador.getText());
         empleado.setNivelAcceso(Integer.parseInt(datoCB));
-        
-        
+
         try {
             actualizarTablaEmpleados();
         } catch (SQLException ex) {
             Logger.getLogger(MantenedorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }//GEN-LAST:event_btnActualizarAdministradorActionPerformed
+
+    private void cboNivelAccesoActualizarAdministradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboNivelAccesoActualizarAdministradorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboNivelAccesoActualizarAdministradorActionPerformed
 
     private void txtCargoActualizarAdministradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCargoActualizarAdministradorActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCargoActualizarAdministradorActionPerformed
 
+    private void btnEliminarAdministradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarAdministradorActionPerformed
+
+        Empleado empleado = new Empleado();
+        empleado.setIdEmpleado(Integer.parseInt(txtIDborrarAdministrador.getText()));
+        try {
+            manager.getdEmpleados().delete(empleado);
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenedorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnEliminarAdministradorActionPerformed
+
+    private void txtIDborrarAdministradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDborrarAdministradorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIDborrarAdministradorActionPerformed
+
     private void btnRegistrarTrabajadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarTrabajadorActionPerformed
-       
+
         Empleado empleado = new Empleado();
         String datoCB = cboNivelAccesoRegistar.getSelectedItem().toString();
         empleado.setNombreEmpleado(txtNombreTrabajadorRegistar.getText());
@@ -1175,37 +1120,81 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnRegistrarTrabajadorActionPerformed
 
-    private void btnVolverInicioEquinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverInicioEquinoActionPerformed
-
-        //oInicio.setVisible(true);
-        //this.setVisible(false);
-    }//GEN-LAST:event_btnVolverInicioEquinoActionPerformed
-
-    private void cboNivelAccesoActualizarAdministradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboNivelAccesoActualizarAdministradorActionPerformed
+    private void txtCargoTrabajadorRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCargoTrabajadorRegistrarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cboNivelAccesoActualizarAdministradorActionPerformed
+    }//GEN-LAST:event_txtCargoTrabajadorRegistrarActionPerformed
 
-    private void btnActualizarTablaBuscarTrabajadorAdministradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarTablaBuscarTrabajadorAdministradorActionPerformed
+    private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
+        
+    }//GEN-LAST:event_jTabbedPane1MouseClicked
+
+    private void jPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseClicked
+        // TODO add your handling code here:
+        
         try {
-            actualizarTablaProducto();
+            // TODO add your handling code here:
+            actualizarTablaEmpleados();
         } catch (SQLException ex) {
             Logger.getLogger(MantenedorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_btnActualizarTablaBuscarTrabajadorAdministradorActionPerformed
+        
+    }//GEN-LAST:event_jPanel5MouseClicked
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jPanel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel7MouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+        
+        try {
+            // TODO add your handling code here:
+            actualizarTablaEmpleados();
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenedorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_jPanel7MouseClicked
 
-    private void txtIDborrarAdministradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDborrarAdministradorActionPerformed
+    private void jPanel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel8MouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtIDborrarAdministradorActionPerformed
+        
+        try {
+            // TODO add your handling code here:
+            actualizarTablaEmpleados();
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenedorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_jPanel8MouseClicked
+
+    private void jPanel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseClicked
+        // TODO add your handling code here:
+        
+        try {
+            // TODO add your handling code here:
+            actualizarTablaEmpleados();
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenedorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_jPanel6MouseClicked
+
+    private void txtBuscarTrabajadorAdministradorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarTrabajadorAdministradorKeyReleased
+        // TODO add your handling code here:
+        
+        try {
+            String dato = txtBuscarTrabajadorAdministrador.getText();
+            filtroTablaEmpleados(dato);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenedorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_txtBuscarTrabajadorAdministradorKeyReleased
+
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-     
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
@@ -1221,14 +1210,11 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
     private javax.swing.JTextField CampoIdProveedor;
     private javax.swing.JTextField CampoIdProveedor1;
     private javax.swing.JButton btnActualizarAdministrador;
-    private javax.swing.JButton btnActualizarTablaBuscarTrabajadorAdministrador;
     private javax.swing.JButton btnAgregar;
-    private javax.swing.JButton btnBuscarTrabajadorAdministrador;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnEliminarAdministrador;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnRegistrarTrabajador;
-    private javax.swing.JButton btnVolverInicioEquino;
     private javax.swing.JComboBox<String> cboNivelAccesoActualizarAdministrador;
     private javax.swing.JComboBox<String> cboNivelAccesoRegistar;
     private javax.swing.JButton jButton1;
@@ -1264,7 +1250,6 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
@@ -1293,9 +1278,9 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTable tblActualizarAdministardor;
+    private javax.swing.JTable tblAgregarEmpleado;
     private javax.swing.JTable tblBuscarAdministrador;
     private javax.swing.JTable tblEliminarAdministrador;
-    private javax.swing.JTable tblIngresarTrabajadorAdministrador;
     private javax.swing.JTable tblProductos;
     private javax.swing.JTable tblProveedores;
     private javax.swing.JTextField txtBuscarTrabajadorAdministrador;
@@ -1313,28 +1298,37 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
     private javax.swing.JTextField txtnombreActualizarAdministrador;
     // End of variables declaration//GEN-END:variables
 
-
-    
     public void actualizarTablaProducto() throws SQLException {
         DAOProductos dao = manager.getdProductos();
         List<Productos> lista = dao.getAll();
         TMProductos tmProducto = new TMProductos(lista);
         tblProductos.setModel(tmProducto);
     }
-    
+
     public void actualizarTablaProveedores() throws SQLException {
         DAOProveedores dao = manager.getdProveedores();
         List<Proveedores> listaProv = dao.getAll();
         TMProveedores tmProveedores = new TMProveedores(listaProv);
         tblProveedores.setModel(tmProveedores);
     }
-    
+
     public void actualizarTablaEmpleados() throws SQLException {
         DAOEmpleados dao = manager.getdEmpleados();
         List<Empleado> listaEmpleados = dao.getAll();
         TMEmpleado tmEmpleado = new TMEmpleado(listaEmpleados);
+        tblAgregarEmpleado.setModel(tmEmpleado);
+        tblEliminarAdministrador.setModel(tmEmpleado);
         tblActualizarAdministardor.setModel(tmEmpleado);
+        tblBuscarAdministrador.setModel(tmEmpleado);
     }
     
+    public void filtroTablaEmpleados(String dato) throws SQLException {
+        DAOEmpleados dao = manager.getdEmpleados();
+        List<Empleado> listaEmpleados = dao.getAll(dato);
+        //System.out.println("Lohace");
+        TMEmpleado tmEmpleado = new TMEmpleado(listaEmpleados);
+        tblBuscarAdministrador.setModel(tmEmpleado);
+    }
     
+
 }
