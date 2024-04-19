@@ -8,6 +8,7 @@ import db.dao.DAOEmpleados;
 import db.dao.DAOManager;
 import db.dao.DAOProductos;
 import db.dao.DAOProveedores;
+import java.awt.Color;
 import model.tm.TMProductos;
 import java.sql.SQLException;
 import java.util.List;
@@ -32,10 +33,12 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
      * Creates new form MantenedorApoderado
      */
     private DAOManager manager;
+    private int desiredWidth = 200;
     //private MantenedorInicio oInicio;
 
     public MantenedorAdministrador() throws SQLException {
         initComponents();
+        placeHolders();
 
         try {
 
@@ -43,13 +46,13 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
             //oInicio = new MantenedorInicio();
 
             TMProductos tmProductos = new TMProductos(manager.getdProductos().getAll());
-            tblProductos.setModel(tmProductos);
+            actualizarTablaProducto();
 
             TMProveedores tmProveedores = new TMProveedores(manager.getdProveedores().getAll());
-            tblProveedores.setModel(tmProveedores);
+            actualizarTablaProveedores();
 
             TMEmpleado tmEmpleado = new TMEmpleado(manager.getdEmpleados().getAll());
-            
+
             actualizarTablaEmpleados();
 
         } catch (SQLException ex) {
@@ -144,17 +147,17 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        txtNombreProducto = new javax.swing.JTextField();
+        txtCantidadProducto = new javax.swing.JTextField();
+        txtPrecioProductos = new javax.swing.JTextField();
+        txtDescripcionProductos = new javax.swing.JTextField();
+        cboProveedorProductos = new javax.swing.JComboBox<>();
+        btnAgregarProductos = new javax.swing.JButton();
+        btnActualizarProducto = new javax.swing.JButton();
+        btnBorrarProducto = new javax.swing.JButton();
         jPanel18 = new javax.swing.JPanel();
         jLabel26 = new javax.swing.JLabel();
-        CampoIdProveedor1 = new javax.swing.JTextField();
+        txtIdProducto = new javax.swing.JTextField();
         jLabel25 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
         tblProductos = new javax.swing.JTable();
@@ -609,6 +612,19 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(168, 143, 156));
 
+        txtBuscarTrabajadorAdministrador.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtBuscarTrabajadorAdministradorFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtBuscarTrabajadorAdministradorFocusLost(evt);
+            }
+        });
+        txtBuscarTrabajadorAdministrador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscarTrabajadorAdministradorActionPerformed(evt);
+            }
+        });
         txtBuscarTrabajadorAdministrador.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtBuscarTrabajadorAdministradorKeyReleased(evt);
@@ -698,12 +714,27 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
 
         btnAgregar.setText("Agregar");
         btnAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setText("Eliminar");
         btnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnModificar.setText("Modificar");
         btnModificar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
@@ -867,22 +898,32 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
         jLabel24.setForeground(new java.awt.Color(255, 255, 255));
         jLabel24.setText("Descripcion");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cboProveedorProductos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboProveedorProductos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton1.setText("Agregar");
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        jButton2.setText("Actualizar");
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnAgregarProductos.setText("Agregar");
+        btnAgregarProductos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAgregarProductos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnAgregarProductosActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Borrar");
-        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnActualizarProducto.setText("Actualizar");
+        btnActualizarProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnActualizarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarProductoActionPerformed(evt);
+            }
+        });
+
+        btnBorrarProducto.setText("Borrar");
+        btnBorrarProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBorrarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBorrarProductoActionPerformed(evt);
+            }
+        });
 
         jLabel26.setText("Campo ID");
 
@@ -893,7 +934,7 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
             .addGroup(jPanel18Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(CampoIdProveedor1, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtIdProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -903,7 +944,7 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
                 .addGap(45, 45, 45)
                 .addComponent(jLabel26)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(CampoIdProveedor1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtIdProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(67, Short.MAX_VALUE))
         );
 
@@ -922,7 +963,7 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
                             .addGroup(jPanel17Layout.createSequentialGroup()
                                 .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtCantidadProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel17Layout.createSequentialGroup()
                                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -931,19 +972,19 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
                                     .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField1)
-                                    .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
-                                    .addComponent(jTextField4)
-                                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .addComponent(txtNombreProducto)
+                                    .addComponent(txtPrecioProductos, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
+                                    .addComponent(txtDescripcionProductos)
+                                    .addComponent(cboProveedorProductos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(jPanel17Layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(btnAgregarProductos)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3)
+                        .addComponent(btnActualizarProducto)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnBorrarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(14, 14, 14))))
@@ -956,31 +997,32 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
                     .addGroup(jPanel17Layout.createSequentialGroup()
                         .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel20)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtNombreProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(11, 11, 11)
                         .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel21)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtCantidadProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel22)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(17, 17, 17)
+                            .addComponent(cboProveedorProductos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                         .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel23)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtPrecioProductos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(6, 6, 6)
                         .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel24)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtDescripcionProductos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(10, 10, 10))
                     .addComponent(jPanel18, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel17Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
-                            .addComponent(jButton2)
-                            .addComponent(jButton3)))
+                            .addComponent(btnAgregarProductos)
+                            .addComponent(btnActualizarProducto)
+                            .addComponent(btnBorrarProducto)))
                     .addGroup(jPanel17Layout.createSequentialGroup()
                         .addGap(8, 8, 8)
                         .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -1061,9 +1103,28 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnActualizarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarProductoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+        
+        Productos productos = new Productos();
+        
+        String dato = cboProveedorProductos.getSelectedItem().toString();
+        productos.setNombreProducto(txtNombreProducto.getText());
+        productos.setDescripcionProducto(txtDescripcionProductos.getText());
+        // falta la wea de provedores
+        
+        try {
+            productos.setIdProducto(Integer.parseInt(txtIdProducto.getText()));
+            productos.setCantidadProducto(Integer.parseInt(txtCantidadProducto.getText()));
+            productos.setPrecioProducto(Integer.parseInt(txtPrecioProductos.getText()));
+            manager.getdProductos().update(productos);
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenedorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NumberFormatException e) {
+            JOptionPane.showConfirmDialog(null, "Ingrese solo numeros", "Aceptar", JOptionPane.DEFAULT_OPTION);
+        }
+        
+    }//GEN-LAST:event_btnActualizarProductoActionPerformed
 
     private void btnActualizarAdministradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarAdministradorActionPerformed
 
@@ -1076,6 +1137,7 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
         empleado.setNivelAcceso(Integer.parseInt(datoCB));
 
         try {
+            manager.getdEmpleados().update(empleado);
             actualizarTablaEmpleados();
         } catch (SQLException ex) {
             Logger.getLogger(MantenedorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
@@ -1096,6 +1158,7 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
         empleado.setIdEmpleado(Integer.parseInt(txtIDborrarAdministrador.getText()));
         try {
             manager.getdEmpleados().delete(empleado);
+            actualizarTablaEmpleados();
         } catch (SQLException ex) {
             Logger.getLogger(MantenedorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1115,6 +1178,7 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
         empleado.setNivelAcceso(Integer.parseInt(datoCB));
         try {
             manager.getdEmpleados().create(empleado);
+            actualizarTablaEmpleados();
         } catch (SQLException ex) {
             Logger.getLogger(MantenedorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1125,70 +1189,194 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCargoTrabajadorRegistrarActionPerformed
 
     private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
-        
+
     }//GEN-LAST:event_jTabbedPane1MouseClicked
 
     private void jPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseClicked
         // TODO add your handling code here:
-        
+
         try {
             // TODO add your handling code here:
             actualizarTablaEmpleados();
         } catch (SQLException ex) {
             Logger.getLogger(MantenedorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }//GEN-LAST:event_jPanel5MouseClicked
 
     private void jPanel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel7MouseClicked
         // TODO add your handling code here:
-        
+
         try {
             // TODO add your handling code here:
             actualizarTablaEmpleados();
         } catch (SQLException ex) {
             Logger.getLogger(MantenedorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }//GEN-LAST:event_jPanel7MouseClicked
 
     private void jPanel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel8MouseClicked
         // TODO add your handling code here:
-        
+
         try {
             // TODO add your handling code here:
             actualizarTablaEmpleados();
         } catch (SQLException ex) {
             Logger.getLogger(MantenedorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }//GEN-LAST:event_jPanel8MouseClicked
 
     private void jPanel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseClicked
         // TODO add your handling code here:
-        
+
         try {
             // TODO add your handling code here:
             actualizarTablaEmpleados();
         } catch (SQLException ex) {
             Logger.getLogger(MantenedorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }//GEN-LAST:event_jPanel6MouseClicked
 
     private void txtBuscarTrabajadorAdministradorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarTrabajadorAdministradorKeyReleased
         // TODO add your handling code here:
-        
+
         try {
             String dato = txtBuscarTrabajadorAdministrador.getText();
             filtroTablaEmpleados(dato);
-            
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenedorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_txtBuscarTrabajadorAdministradorKeyReleased
+
+    private void txtBuscarTrabajadorAdministradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarTrabajadorAdministradorActionPerformed
+        // TODO add your handling code here:
+
+
+    }//GEN-LAST:event_txtBuscarTrabajadorAdministradorActionPerformed
+
+    private void txtBuscarTrabajadorAdministradorFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBuscarTrabajadorAdministradorFocusGained
+        // TODO add your handling code here:
+
+        txtBuscarTrabajadorAdministrador.setText("");
+        txtBuscarTrabajadorAdministrador.setForeground(Color.black);
+
+    }//GEN-LAST:event_txtBuscarTrabajadorAdministradorFocusGained
+
+    private void txtBuscarTrabajadorAdministradorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBuscarTrabajadorAdministradorFocusLost
+        // TODO add your handling code here:
+        if (txtBuscarTrabajadorAdministrador.getText().isEmpty()) {
+            txtBuscarTrabajadorAdministrador.setText("Ingrese el nombre del empleado que desea buscar");
+            txtBuscarTrabajadorAdministrador.setForeground(Color.gray);
+        }
+
+    }//GEN-LAST:event_txtBuscarTrabajadorAdministradorFocusLost
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        // TODO add your handling code here:
+        
+        Proveedores proveedores = new Proveedores();
+        
+        proveedores.setNombreProveedor(txtNombreProveedor.getText());
+        proveedores.setRutProveedor(txtRutProveedor.getText());
+        proveedores.setCorreoProveedor(txtCorreoProveedor.getText());
+        proveedores.setTelefonoProveedor(txtTelefonoProveedor.getText());
+        
+        try {
+            manager.getdProveedores().create(proveedores);
+            actualizarTablaProveedores();
         } catch (SQLException ex) {
             Logger.getLogger(MantenedorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-    }//GEN-LAST:event_txtBuscarTrabajadorAdministradorKeyReleased
+    }//GEN-LAST:event_btnAgregarActionPerformed
 
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+        
+        Proveedores proveedores = new Proveedores();
+        try {
+            proveedores.setIdProveedor(Integer.parseInt(CampoIdProveedor.getText()));
+            manager.getdProveedores().delete(proveedores);
+            actualizarTablaProveedores();
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenedorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NumberFormatException e) {
+            JOptionPane.showConfirmDialog(null, "Ingrese solo numeros", "Aceptar", JOptionPane.DEFAULT_OPTION);
+        }
+        
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        // TODO add your handling code here:
+        
+        
+        Proveedores proveedores = new Proveedores();
+        
+        proveedores.setNombreProveedor(txtNombreProveedor.getText());
+        proveedores.setRutProveedor(txtRutProveedor.getText());
+        proveedores.setCorreoProveedor(txtCorreoProveedor.getText());
+        proveedores.setTelefonoProveedor(txtTelefonoProveedor.getText());
+        
+        try {
+            proveedores.setIdProveedor(Integer.parseInt(CampoIdProveedor.getText()));
+            manager.getdProveedores().update(proveedores);
+            actualizarTablaProveedores();
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenedorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NumberFormatException e) {
+            JOptionPane.showConfirmDialog(null, "Ingrese solo numeros", "Aceptar", JOptionPane.DEFAULT_OPTION);
+        }
+        
+        
+        
+    }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void btnAgregarProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductosActionPerformed
+        // TODO add your handling code here:
+        Productos productos = new Productos();
+        
+        String dato = cboProveedorProductos.getSelectedItem().toString();
+        productos.setNombreProducto(txtNombreProducto.getText());
+        productos.setDescripcionProducto(txtDescripcionProductos.getText());
+        // falta la wea de provedores
+        
+        try {
+            
+            productos.setCantidadProducto(Integer.parseInt(txtCantidadProducto.getText()));
+            productos.setPrecioProducto(Integer.parseInt(txtPrecioProductos.getText()));
+            manager.getdProductos().create(productos);
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenedorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NumberFormatException e) {
+            JOptionPane.showConfirmDialog(null, "Ingrese solo numeros", "Aceptar", JOptionPane.DEFAULT_OPTION);
+        }
+        
+        
+        
+        
+    }//GEN-LAST:event_btnAgregarProductosActionPerformed
+
+    private void btnBorrarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarProductoActionPerformed
+        // TODO add your handling code here:
+        
+        Productos productos = new Productos();
+        
+        
+        try {
+            productos.setIdProducto(Integer.parseInt(txtIdProducto.getText()));
+            manager.getdProductos().delete(productos);
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenedorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NumberFormatException e) {
+            JOptionPane.showConfirmDialog(null, "Ingrese solo numeros", "Aceptar", JOptionPane.DEFAULT_OPTION);
+        }
+        
+    }//GEN-LAST:event_btnBorrarProductoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1208,19 +1396,18 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField CampoIdProveedor;
-    private javax.swing.JTextField CampoIdProveedor1;
     private javax.swing.JButton btnActualizarAdministrador;
+    private javax.swing.JButton btnActualizarProducto;
     private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnAgregarProductos;
+    private javax.swing.JButton btnBorrarProducto;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnEliminarAdministrador;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnRegistrarTrabajador;
     private javax.swing.JComboBox<String> cboNivelAccesoActualizarAdministrador;
     private javax.swing.JComboBox<String> cboNivelAccesoRegistar;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> cboProveedorProductos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1273,10 +1460,6 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JTable tblActualizarAdministardor;
     private javax.swing.JTable tblAgregarEmpleado;
     private javax.swing.JTable tblBuscarAdministrador;
@@ -1284,13 +1467,18 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
     private javax.swing.JTable tblProductos;
     private javax.swing.JTable tblProveedores;
     private javax.swing.JTextField txtBuscarTrabajadorAdministrador;
+    private javax.swing.JTextField txtCantidadProducto;
     private javax.swing.JTextField txtCargoActualizarAdministrador;
     private javax.swing.JTextField txtCargoTrabajadorRegistrar;
     private javax.swing.JTextField txtCorreoProveedor;
+    private javax.swing.JTextField txtDescripcionProductos;
     private javax.swing.JTextField txtIDActualizarTrabajador;
     private javax.swing.JTextField txtIDborrarAdministrador;
+    private javax.swing.JTextField txtIdProducto;
+    private javax.swing.JTextField txtNombreProducto;
     private javax.swing.JTextField txtNombreProveedor;
     private javax.swing.JTextField txtNombreTrabajadorRegistar;
+    private javax.swing.JTextField txtPrecioProductos;
     private javax.swing.JFormattedTextField txtRutActualizarAdministrador;
     private javax.swing.JTextField txtRutProveedor;
     private javax.swing.JFormattedTextField txtRutTrabajadorRegistrar;
@@ -1303,6 +1491,7 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
         List<Productos> lista = dao.getAll();
         TMProductos tmProducto = new TMProductos(lista);
         tblProductos.setModel(tmProducto);
+        tblProductos.getColumnModel().getColumn(4).setPreferredWidth(desiredWidth);
     }
 
     public void actualizarTablaProveedores() throws SQLException {
@@ -1310,6 +1499,7 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
         List<Proveedores> listaProv = dao.getAll();
         TMProveedores tmProveedores = new TMProveedores(listaProv);
         tblProveedores.setModel(tmProveedores);
+        tblProveedores.getColumnModel().getColumn(3).setPreferredWidth(desiredWidth);
     }
 
     public void actualizarTablaEmpleados() throws SQLException {
@@ -1321,7 +1511,7 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
         tblActualizarAdministardor.setModel(tmEmpleado);
         tblBuscarAdministrador.setModel(tmEmpleado);
     }
-    
+
     public void filtroTablaEmpleados(String dato) throws SQLException {
         DAOEmpleados dao = manager.getdEmpleados();
         List<Empleado> listaEmpleados = dao.getAll(dato);
@@ -1329,6 +1519,10 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
         TMEmpleado tmEmpleado = new TMEmpleado(listaEmpleados);
         tblBuscarAdministrador.setModel(tmEmpleado);
     }
-    
 
+    public void placeHolders(){
+        txtBuscarTrabajadorAdministrador.setText("Ingrese el dato que desea buscar");
+        txtBuscarTrabajadorAdministrador.setForeground(Color.GRAY);
+    }
+    
 }
