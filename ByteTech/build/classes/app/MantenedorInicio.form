@@ -202,14 +202,8 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtUsuarioAdminAcceder">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="jTextField1"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JPasswordField" name="passAdminAcceder">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="jPasswordField1"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="btnAdminAcceder">
               <Properties>
@@ -294,7 +288,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Usuario Vendedor"/>
+                <Property name="text" type="java.lang.String" value="Nombre "/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel2">
@@ -302,13 +296,10 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Contrase&#xf1;a"/>
+                <Property name="text" type="java.lang.String" value="Rut"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JPasswordField" name="passVendedorAcceder">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="jPasswordField1"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="btnVendedorInicio">
               <Properties>

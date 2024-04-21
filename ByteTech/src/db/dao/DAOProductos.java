@@ -75,5 +75,28 @@ public class DAOProductos implements DAO<Producto> {
         return listaProductos;
     }
     
+    public List<Producto> getAll(String dato) throws SQLException {
+        String sql = "SELECT * FROM productos INNER JOIN proveedores ON productos.id_proveedor = proveedores.id_proveedores WHERE nombre_productos LIKE '%" + dato + "%';";
+        //System.out.println(sql);
+        ResultSet rs = conn.execute(sql);
+
+        List<Producto> listaProductos = new ArrayList<>();
+
+        while (rs.next()) {
+            Producto productos = new Producto();
+ 
+            productos.setIdProducto(rs.getInt("id_productos"));
+            productos.setNombreProducto(rs.getString("nombre_productos"));
+            productos.setCantidadProducto(rs.getInt("cantidad_productos"));
+            productos.setPrecioProducto(rs.getInt("precio_producto"));
+            productos.setDescripcionProducto(rs.getString("descripcion_producto"));
+            Proveedor proveedor = new Proveedor(rs.getInt("id_proveedores"),rs.getString("nombre_proveedor"),rs.getString("rut_proveedor"),rs.getString("correo_proveedor"),rs.getString("telefono_proveedor"));
+            productos.setProveedor(proveedor);
+            listaProductos.add(productos);
+
+        }
+        conn.close();
+        return listaProductos;
+    }
     
 }

@@ -63,7 +63,7 @@ public class MantenedorInicio extends javax.swing.JFrame {
         setTitle("Bienvenido Horse_ltda");
 
         jPanel1.setBackground(new java.awt.Color(124, 99, 111));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Bienvenido ByteTech", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 3, 18))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Bienvenido ByteTech", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 3, 18))); // NOI18N
         jPanel1.setForeground(new java.awt.Color(204, 204, 255));
 
         jPanel2.setBackground(new java.awt.Color(168, 143, 156));
@@ -83,10 +83,6 @@ public class MantenedorInicio extends javax.swing.JFrame {
 
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Contraseña");
-
-        txtUsuarioAdminAcceder.setText("jTextField1");
-
-        passAdminAcceder.setText("jPasswordField1");
 
         btnAdminAcceder.setText("Acceder");
 
@@ -138,12 +134,10 @@ public class MantenedorInicio extends javax.swing.JFrame {
         btnVendedorAcceder.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Usuario Vendedor");
+        jLabel1.setText("Nombre ");
 
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Contraseña");
-
-        passVendedorAcceder.setText("jPasswordField1");
+        jLabel2.setText("Rut");
 
         btnVendedorInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/trabajador 32.png"))); // NOI18N
         btnVendedorInicio.setText("Vendedor");
