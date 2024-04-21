@@ -9,17 +9,17 @@ import java.util.List;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
-import model.Productos;
+import model.Producto;
 
 /**
  *
  * @author DaddyChary
  */
-public class TMProductos extends AbstractTableModel{
+public class TMProducto extends AbstractTableModel{
     
-    private List<Productos> productList;
+    private List<Producto> productList;
 
-    public TMProductos(List<Productos> productList) {
+    public TMProducto(List<Producto> productList) {
         this.productList = productList;
     }
     
@@ -30,13 +30,13 @@ public class TMProductos extends AbstractTableModel{
 
     @Override
     public int getColumnCount() {
-        return 5;
+        return 6;
     }
 
     // Método para obtener atributos de la clase Estudiante
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Productos productos = productList.get(rowIndex);
+        Producto productos = productList.get(rowIndex);
 
         return switch (columnIndex) {
             case 0 ->
@@ -49,6 +49,8 @@ public class TMProductos extends AbstractTableModel{
                 productos.getPrecioProducto();
             case 4 ->
                 productos.getDescripcionProducto();
+            case 5 ->
+                productos.getProveedor().getNombreProveedor();
             default ->
                 "";
         };
@@ -66,7 +68,9 @@ public class TMProductos extends AbstractTableModel{
             case 3 ->
                 "Precio";
             case 4 ->
-                "Decripcion";                
+                "Decripcion";   
+            case 5 ->
+                "Proveedor";
             default ->
                 " ";
         };

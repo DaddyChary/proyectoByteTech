@@ -25,17 +25,23 @@ public class DAOEmpleados implements DAO<Empleado> {
 
     @Override
     public void create(Empleado t) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "INSERT INTO `empleado` (`nombre_empleado`, `rut_empleado`, `cargo_empleado`, `nivel_acceso`)"+
+                     " VALUES ('" + t.getNombreEmpleado()+ " ', '" + t.getRutEmpleado()+ "', '" + t.getCargoEmpleado()+ "', '" + t.getNivelAcceso()+ "');";
+        //System.out.println(sql);
+        conn.execute(sql);
     }
 
     @Override
     public void update(Empleado t) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       String sql = "UPDATE `empleado` SET nombre_empleado = '" + t.getNombreEmpleado()+ " ', rut_empleado ='" + t.getRutEmpleado()+ "', cargo_empleado = '" + t.getCargoEmpleado()+ "', nivel_acceso = '" + t.getNivelAcceso()+ "' WHERE id_empleado = "+ t.getIdEmpleado()+";";
+        //System.out.println(sql);
+        conn.execute(sql);
     }
 
     @Override
     public void delete(Empleado t) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "DELETE FROM empleado WHERE id_empleado = "+ t.getIdEmpleado()+";";
+        conn.execute(sql);
     }
 
     @Override

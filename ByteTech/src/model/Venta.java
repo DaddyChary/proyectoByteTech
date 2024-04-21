@@ -7,11 +7,11 @@ package model;
 
 import java.util.Date;
 
-/**
+/*
  *
  * @author DaddyChary
  */
-public class Ventas {
+public class Venta {
     
     private int idVentas;
     private Date fechaVentas;
@@ -20,10 +20,10 @@ public class Ventas {
     private int precioProductosVentas;
     private String descripcionProductosVentas;
 
-    public Ventas() {
+    public Venta() {
     }
 
-    public Ventas(int idVentas, Date fechaVentas, int cantidadProductosVentas, String nombreProductosVentas, int precioProductosVentas, String descripcionProductosVentas) {
+    public Venta(int idVentas, Date fechaVentas, int cantidadProductosVentas, String nombreProductosVentas, int precioProductosVentas, String descripcionProductosVentas) {
         this.idVentas = idVentas;
         this.fechaVentas = fechaVentas;
         this.cantidadProductosVentas = cantidadProductosVentas;

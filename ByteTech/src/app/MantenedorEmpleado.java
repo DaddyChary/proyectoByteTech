@@ -11,10 +11,10 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.Productos;
-import model.Ventas;
-import model.tm.TMProductos;
-import model.tm.TMVentas;
+import model.Producto;
+import model.Venta;
+import model.tm.TMProducto;
+import model.tm.TMVenta;
 
 /**
  *
@@ -32,13 +32,16 @@ public class MantenedorEmpleado extends javax.swing.JFrame {
         this.manager = new DAOManager();
         //oInicio = new MantenedorInicio();
         
-        TMProductos tmProductos = new TMProductos(manager.getdProductos().getAll());
+        TMProducto tmProductos = new TMProducto(manager.getdProductos().getAll());
         tblProductoStock.setModel(tmProductos);
         
-        TMVentas tmVentas = new TMVentas(manager.getdVentas().getAll());
+        TMVenta tmVentas = new TMVenta(manager.getdVentas().getAll());
         tblInformes.setModel(tmVentas);
         
+        actualizarTablaInformes();
+        actualizarTablaProducto();
         
+        this.setLocationRelativeTo(null);
     }
 
 
@@ -699,15 +702,15 @@ public class MantenedorEmpleado extends javax.swing.JFrame {
 
     public void actualizarTablaProducto() throws SQLException {
         DAOProductos dao = manager.getdProductos();
-        List<Productos> lista = dao.getAll();
-        TMProductos tmProducto = new TMProductos(lista);
+        List<Producto> lista = dao.getAll();
+        TMProducto tmProducto = new TMProducto(lista);
         tblProductoStock.setModel(tmProducto);
     }
     
     public void actualizarTablaInformes() throws SQLException {
             DAOVentas dao = manager.getdVentas();
-            List<Ventas> listaVentas = dao.getAll();
-            TMVentas tmVentas = new TMVentas(listaVentas);
+            List<Venta> listaVentas = dao.getAll();
+            TMVenta tmVentas = new TMVenta(listaVentas);
             tblProductoStock.setModel(tmVentas);
     }
     

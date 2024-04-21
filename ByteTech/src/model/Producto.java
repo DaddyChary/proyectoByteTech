@@ -8,23 +8,34 @@ package model;
  *
  * @author DaddyChary
  */
-public class Productos {
+public class Producto {
     
     private int idProducto;
     private String nombreProducto;
     private int cantidadProducto;
     private int precioProducto;
     private String descripcionProducto;
+    private Proveedor proveedor;
 
-    public Productos() {
+    public Producto() {
+        
     }
 
-    public Productos(int idProducto, String nombreProducto, int cantidadProducto, int precioProducto, String descripcionProducto) {
+    public Producto(int idProducto, String nombreProducto, int cantidadProducto, int precioProducto, String descripcionProducto) {
         this.idProducto = idProducto;
         this.nombreProducto = nombreProducto;
         this.cantidadProducto = cantidadProducto;
         this.precioProducto = precioProducto;
         this.descripcionProducto = descripcionProducto;
+    }
+
+    public Producto(int idProducto, String nombreProducto, int cantidadProducto, int precioProducto, String descripcionProducto, Proveedor proveedor) {
+        this.idProducto = idProducto;
+        this.nombreProducto = nombreProducto;
+        this.cantidadProducto = cantidadProducto;
+        this.precioProducto = precioProducto;
+        this.descripcionProducto = descripcionProducto;
+        this.proveedor = proveedor;
     }
 
     public int getIdProducto() {
@@ -67,8 +78,20 @@ public class Productos {
         this.descripcionProducto = descripcionProducto;
     }
 
+    public Proveedor getProveedor() {
+        return proveedor;
+    }
+
+    public void setProveedor(Proveedor proveedor) {
+        this.proveedor = proveedor;
+    }
+
     @Override
     public String toString() {
-        return "Productos{" + "idProducto=" + idProducto + ", nombreProducto=" + nombreProducto + ", cantidadProducto=" + cantidadProducto + ", precioProducto=" + precioProducto + ", descripcionProducto=" + descripcionProducto + '}';
+        return "Producto{" + "idProducto=" + idProducto + ", nombreProducto=" + nombreProducto + ", cantidadProducto=" + cantidadProducto + ", precioProducto=" + precioProducto + ", descripcionProducto=" + descripcionProducto + ", proveedor=" + proveedor + '}';
     }
+
+    
+
+    
 }

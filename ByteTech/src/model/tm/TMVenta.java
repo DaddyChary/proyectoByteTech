@@ -6,17 +6,17 @@ package model.tm;
 
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
-import model.Ventas;
+import model.Venta;
 
 /**
  *
  * @author DaddyChary
  */
-public class TMVentas extends AbstractTableModel {
+public class TMVenta extends AbstractTableModel {
     
-    private List<Ventas> ventasList;
+    private List<Venta> ventasList;
 
-    public TMVentas(List<Ventas> ventasList) {
+    public TMVenta(List<Venta> ventasList) {
         this.ventasList = ventasList;
     }
     
@@ -33,7 +33,7 @@ public class TMVentas extends AbstractTableModel {
     // Método para obtener atributos de la clase Estudiante
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Ventas ventas = ventasList.get(rowIndex);
+        Venta ventas = ventasList.get(rowIndex);
 
         return switch (columnIndex) {
             case 0 ->

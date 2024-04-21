@@ -9,7 +9,7 @@ import db.dao.DAOManager;
 import db.dao.DAOProductos;
 import db.dao.DAOProveedores;
 import java.awt.Color;
-import model.tm.TMProductos;
+import model.tm.TMProducto;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -18,10 +18,10 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Administrador;
 import model.Empleado;
-import model.Productos;
-import model.Proveedores;
+import model.Producto;
+import model.Proveedor;
 import model.tm.TMEmpleado;
-import model.tm.TMProveedores;
+import model.tm.TMProveedore;
 
 /**
  *
@@ -45,15 +45,16 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
             this.manager = new DAOManager();
             //oInicio = new MantenedorInicio();
 
-            TMProductos tmProductos = new TMProductos(manager.getdProductos().getAll());
+            TMProducto tmProductos = new TMProducto(manager.getdProductos().getAll());
             actualizarTablaProducto();
 
-            TMProveedores tmProveedores = new TMProveedores(manager.getdProveedores().getAll());
+            TMProveedore tmProveedores = new TMProveedore(manager.getdProveedores().getAll());
             actualizarTablaProveedores();
 
             TMEmpleado tmEmpleado = new TMEmpleado(manager.getdEmpleados().getAll());
 
             actualizarTablaEmpleados();
+            actualizarComboboxProductos();
 
         } catch (SQLException ex) {
             JOptionPane.showConfirmDialog(null, "Enciende el Xampp", "Aceptar", JOptionPane.DEFAULT_OPTION);
@@ -405,7 +406,7 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("", new javax.swing.ImageIcon(getClass().getResource("/img/borrar25.png")), jPanel7); // NOI18N
@@ -585,7 +586,7 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
                 .addGap(23, 23, 23))
         );
 
@@ -675,7 +676,7 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addContainerGap(80, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("", new javax.swing.ImageIcon(getClass().getResource("/img/buscar persona 25.png")), jPanel6); // NOI18N
@@ -771,13 +772,13 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
                     .addComponent(jLabel14)
                     .addComponent(txtNombreProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel15)
-                    .addComponent(txtRutProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtRutProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel16)
-                    .addComponent(txtCorreoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCorreoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
@@ -787,7 +788,7 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
                     .addComponent(btnAgregar)
                     .addComponent(btnEliminar)
                     .addComponent(btnModificar))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         jPanel14.setBackground(new java.awt.Color(168, 143, 156));
@@ -900,6 +901,11 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
 
         cboProveedorProductos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cboProveedorProductos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cboProveedorProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboProveedorProductosActionPerformed(evt);
+            }
+        });
 
         btnAgregarProductos.setText("Agregar");
         btnAgregarProductos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -984,7 +990,7 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnActualizarProducto)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnBorrarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnBorrarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(14, 14, 14))))
@@ -1060,7 +1066,7 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1105,25 +1111,37 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
 
     private void btnActualizarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarProductoActionPerformed
         // TODO add your handling code here:
-        
-        Productos productos = new Productos();
-        
+
+        Producto productos = new Producto();
+        Proveedor proveedor = new Proveedor();
+
         String dato = cboProveedorProductos.getSelectedItem().toString();
+        System.out.println(dato);
+        try {
+
+            Proveedor prov = manager.getdProveedores().getOneId(dato);
+
+            productos.setProveedor(prov);
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenedorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        productos.setIdProducto(Integer.parseInt(txtIdProducto.getText()));
         productos.setNombreProducto(txtNombreProducto.getText());
         productos.setDescripcionProducto(txtDescripcionProductos.getText());
         // falta la wea de provedores
-        
         try {
-            productos.setIdProducto(Integer.parseInt(txtIdProducto.getText()));
+
             productos.setCantidadProducto(Integer.parseInt(txtCantidadProducto.getText()));
             productos.setPrecioProducto(Integer.parseInt(txtPrecioProductos.getText()));
             manager.getdProductos().update(productos);
+            actualizarTablaProducto();
         } catch (SQLException ex) {
             Logger.getLogger(MantenedorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NumberFormatException e) {
             JOptionPane.showConfirmDialog(null, "Ingrese solo numeros", "Aceptar", JOptionPane.DEFAULT_OPTION);
         }
-        
+
     }//GEN-LAST:event_btnActualizarProductoActionPerformed
 
     private void btnActualizarAdministradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarAdministradorActionPerformed
@@ -1278,105 +1296,121 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
-        
-        Proveedores proveedores = new Proveedores();
-        
+
+        Proveedor proveedores = new Proveedor();
+
         proveedores.setNombreProveedor(txtNombreProveedor.getText());
         proveedores.setRutProveedor(txtRutProveedor.getText());
         proveedores.setCorreoProveedor(txtCorreoProveedor.getText());
         proveedores.setTelefonoProveedor(txtTelefonoProveedor.getText());
-        
+
         try {
             manager.getdProveedores().create(proveedores);
             actualizarTablaProveedores();
+            actualizarComboboxProductos();
         } catch (SQLException ex) {
             Logger.getLogger(MantenedorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-        
-        Proveedores proveedores = new Proveedores();
+
+        Proveedor proveedores = new Proveedor();
         try {
             proveedores.setIdProveedor(Integer.parseInt(CampoIdProveedor.getText()));
             manager.getdProveedores().delete(proveedores);
             actualizarTablaProveedores();
+            actualizarComboboxProductos();
         } catch (SQLException ex) {
             Logger.getLogger(MantenedorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NumberFormatException e) {
             JOptionPane.showConfirmDialog(null, "Ingrese solo numeros", "Aceptar", JOptionPane.DEFAULT_OPTION);
         }
-        
+
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
-        
-        
-        Proveedores proveedores = new Proveedores();
-        
+
+        Proveedor proveedores = new Proveedor();
+
         proveedores.setNombreProveedor(txtNombreProveedor.getText());
         proveedores.setRutProveedor(txtRutProveedor.getText());
         proveedores.setCorreoProveedor(txtCorreoProveedor.getText());
         proveedores.setTelefonoProveedor(txtTelefonoProveedor.getText());
-        
+
         try {
             proveedores.setIdProveedor(Integer.parseInt(CampoIdProveedor.getText()));
             manager.getdProveedores().update(proveedores);
             actualizarTablaProveedores();
+            actualizarComboboxProductos();
         } catch (SQLException ex) {
             Logger.getLogger(MantenedorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NumberFormatException e) {
             JOptionPane.showConfirmDialog(null, "Ingrese solo numeros", "Aceptar", JOptionPane.DEFAULT_OPTION);
         }
-        
-        
-        
+
+
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnAgregarProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductosActionPerformed
         // TODO add your handling code here:
-        Productos productos = new Productos();
-        
+        Producto productos = new Producto();
+        Proveedor proveedor = new Proveedor();
+
         String dato = cboProveedorProductos.getSelectedItem().toString();
+        System.out.println(dato);
+        try {
+
+            Proveedor prov = manager.getdProveedores().getOneId(dato);
+
+            productos.setProveedor(prov);
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenedorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         productos.setNombreProducto(txtNombreProducto.getText());
         productos.setDescripcionProducto(txtDescripcionProductos.getText());
         // falta la wea de provedores
-        
         try {
-            
+
             productos.setCantidadProducto(Integer.parseInt(txtCantidadProducto.getText()));
             productos.setPrecioProducto(Integer.parseInt(txtPrecioProductos.getText()));
             manager.getdProductos().create(productos);
+            actualizarTablaProducto();
         } catch (SQLException ex) {
             Logger.getLogger(MantenedorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NumberFormatException e) {
             JOptionPane.showConfirmDialog(null, "Ingrese solo numeros", "Aceptar", JOptionPane.DEFAULT_OPTION);
         }
-        
-        
-        
-        
+
+
     }//GEN-LAST:event_btnAgregarProductosActionPerformed
 
     private void btnBorrarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarProductoActionPerformed
         // TODO add your handling code here:
-        
-        Productos productos = new Productos();
-        
-        
+
+        Producto productos = new Producto();
+
         try {
             productos.setIdProducto(Integer.parseInt(txtIdProducto.getText()));
             manager.getdProductos().delete(productos);
+            actualizarTablaProducto();
         } catch (SQLException ex) {
             Logger.getLogger(MantenedorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NumberFormatException e) {
             JOptionPane.showConfirmDialog(null, "Ingrese solo numeros", "Aceptar", JOptionPane.DEFAULT_OPTION);
         }
-        
+
     }//GEN-LAST:event_btnBorrarProductoActionPerformed
+
+    private void cboProveedorProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboProveedorProductosActionPerformed
+        // TODO add your handling code here:
+
+
+    }//GEN-LAST:event_cboProveedorProductosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1488,16 +1522,16 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
 
     public void actualizarTablaProducto() throws SQLException {
         DAOProductos dao = manager.getdProductos();
-        List<Productos> lista = dao.getAll();
-        TMProductos tmProducto = new TMProductos(lista);
+        List<Producto> lista = dao.getAll();
+        TMProducto tmProducto = new TMProducto(lista);
         tblProductos.setModel(tmProducto);
         tblProductos.getColumnModel().getColumn(4).setPreferredWidth(desiredWidth);
     }
 
     public void actualizarTablaProveedores() throws SQLException {
         DAOProveedores dao = manager.getdProveedores();
-        List<Proveedores> listaProv = dao.getAll();
-        TMProveedores tmProveedores = new TMProveedores(listaProv);
+        List<Proveedor> listaProv = dao.getAll();
+        TMProveedore tmProveedores = new TMProveedore(listaProv);
         tblProveedores.setModel(tmProveedores);
         tblProveedores.getColumnModel().getColumn(3).setPreferredWidth(desiredWidth);
     }
@@ -1520,9 +1554,19 @@ public class MantenedorAdministrador extends javax.swing.JFrame {
         tblBuscarAdministrador.setModel(tmEmpleado);
     }
 
-    public void placeHolders(){
+    public void placeHolders() {
         txtBuscarTrabajadorAdministrador.setText("Ingrese el dato que desea buscar");
         txtBuscarTrabajadorAdministrador.setForeground(Color.GRAY);
     }
-    
+
+    public void actualizarComboboxProductos() throws SQLException {
+        cboProveedorProductos.removeAllItems();
+        List<String> nombres;
+        nombres = manager.getdProveedores().getNombreProveedor();
+        for (String nombre : nombres) {
+            //System.out.println(nombre);
+            cboProveedorProductos.addItem(nombre);
+        }
+    }
+
 }

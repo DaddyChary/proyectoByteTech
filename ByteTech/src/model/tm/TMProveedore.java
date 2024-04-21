@@ -6,17 +6,17 @@ package model.tm;
 
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
-import model.Proveedores;
+import model.Proveedor;
 
 /**
  *
  * @author DaddyChary
  */
-public class TMProveedores extends AbstractTableModel{
+public class TMProveedore extends AbstractTableModel{
     
-    private List<Proveedores> proveedoresList;
+    private List<Proveedor> proveedoresList;
 
-    public TMProveedores(List<Proveedores> proveedoresList) {
+    public TMProveedore(List<Proveedor> proveedoresList) {
         this.proveedoresList = proveedoresList;
     }
     
@@ -33,7 +33,7 @@ public class TMProveedores extends AbstractTableModel{
     // Método para obtener atributos de la clase Estudiante
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Proveedores proveedores = proveedoresList.get(rowIndex);
+        Proveedor proveedores = proveedoresList.get(rowIndex);
 
         return switch (columnIndex) {
             case 0 ->

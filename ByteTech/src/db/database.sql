@@ -37,10 +37,7 @@ CREATE TABLE IF NOT EXISTS productos (
 CREATE TABLE IF NOT EXISTS ventas (
     id_venta INT AUTO_INCREMENT PRIMARY KEY,
     fecha_venta DATE,
-    cantidad_productos INT,
-    nombre_producto VARCHAR(50),
-    precio_producto INT,
-    descripcion_producto VARCHAR(150),
+    cantidad_productos_vendidos INT,
     id_producto INT,
     FOREIGN KEY (id_producto) REFERENCES productos(id_productos)
 );

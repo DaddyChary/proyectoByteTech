@@ -8,7 +8,7 @@ package model;
  *
  * @author DaddyChary
  */
-public class Proveedores {
+public class Proveedor {
     
     private int idProveedor;
     private String nombreProveedor;
@@ -16,10 +16,10 @@ public class Proveedores {
     private String correoProveedor;
     private String telefonoProveedor;
 
-    public Proveedores() {
+    public Proveedor() {
     }
 
-    public Proveedores(int idProveedor, String nombreProveedor, String rutProveedor, String correoProveedor, String telefonoProveedor) {
+    public Proveedor(int idProveedor, String nombreProveedor, String rutProveedor, String correoProveedor, String telefonoProveedor) {
         this.idProveedor = idProveedor;
         this.nombreProveedor = nombreProveedor;
         this.rutProveedor = rutProveedor;
