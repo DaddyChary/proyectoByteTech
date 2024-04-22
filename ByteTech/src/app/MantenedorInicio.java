@@ -4,10 +4,13 @@
  */
 package app;
 
+import db.dao.DAOManager;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import javax.swing.JOptionPane;
+import model.Administrador;
+import model.Empleado;
 
 /**
  *
@@ -18,16 +21,18 @@ public class MantenedorInicio extends javax.swing.JFrame {
     /**
      * Creates new form InicioSesion
      */
-    
-    private  MantenedorAdministrador oMantenedorAdmin;
-    private  MantenedorEmpleado oMantenedorEmpleado;
-    
+    private DAOManager manager;
+    private MantenedorAdministrador oMantenedorAdmin;
+    private MantenedorEmpleado oMantenedorEmpleado;
+
     public MantenedorInicio() throws SQLException {
         initComponents();
         this.setLocationRelativeTo(null);
         oMantenedorAdmin = new MantenedorAdministrador();
         oMantenedorEmpleado = new MantenedorEmpleado();
-        
+
+        this.manager = new DAOManager();
+
     }
 
     /**
@@ -45,22 +50,22 @@ public class MantenedorInicio extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txtUsuarioAdminAcceder = new javax.swing.JTextField();
-        passAdminAcceder = new javax.swing.JPasswordField();
         btnAdminAcceder = new javax.swing.JButton();
+        txtPasswordAdmin = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         btnVendedorAcceder = new javax.swing.JButton();
-        txtUsuarioVendedorAcceder = new javax.swing.JTextField();
+        txtVendedorAccs = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        passVendedorAcceder = new javax.swing.JPasswordField();
         btnVendedorInicio = new javax.swing.JButton();
+        txtRutTrabajadorIngresar = new javax.swing.JFormattedTextField();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Bienvenido Horse_ltda");
+        setTitle("Login Bytetech");
 
         jPanel1.setBackground(new java.awt.Color(124, 99, 111));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Bienvenido ByteTech", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 3, 18))); // NOI18N
@@ -85,6 +90,11 @@ public class MantenedorInicio extends javax.swing.JFrame {
         jLabel5.setText("Contraseña");
 
         btnAdminAcceder.setText("Acceder");
+        btnAdminAcceder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdminAccederActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -98,9 +108,9 @@ public class MantenedorInicio extends javax.swing.JFrame {
                             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtUsuarioAdminAcceder)
-                            .addComponent(passAdminAcceder, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtUsuarioAdminAcceder, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPasswordAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(btnAdminAcceder, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -119,7 +129,7 @@ public class MantenedorInicio extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(passAdminAcceder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPasswordAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btnAdminAcceder)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
@@ -132,6 +142,11 @@ public class MantenedorInicio extends javax.swing.JFrame {
 
         btnVendedorAcceder.setText("Acceder");
         btnVendedorAcceder.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVendedorAcceder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVendedorAccederActionPerformed(evt);
+            }
+        });
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Nombre ");
@@ -148,6 +163,12 @@ public class MantenedorInicio extends javax.swing.JFrame {
             }
         });
 
+        try {
+            txtRutTrabajadorIngresar.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###-#")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -163,9 +184,9 @@ public class MantenedorInicio extends javax.swing.JFrame {
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtUsuarioVendedorAcceder)
-                                .addComponent(passVendedorAcceder, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)))))
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtVendedorAccs, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtRutTrabajadorIngresar)))))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -173,12 +194,12 @@ public class MantenedorInicio extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(58, 58, 58)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtUsuarioVendedorAcceder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtVendedorAccs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addGap(16, 16, 16)
+                .addGap(17, 17, 17)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(passVendedorAcceder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabel2)
+                    .addComponent(txtRutTrabajadorIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnVendedorAcceder)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
@@ -262,7 +283,7 @@ public class MantenedorInicio extends javax.swing.JFrame {
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(30, 30, 30))))
         );
@@ -286,21 +307,86 @@ public class MantenedorInicio extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnVendedorInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendedorInicioActionPerformed
-  
-            oMantenedorEmpleado.setVisible(true);
-            this.setVisible(false);
-    }//GEN-LAST:event_btnVendedorInicioActionPerformed
-
-    private void btnAdministradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdministradorActionPerformed
-            oMantenedorAdmin.setVisible(true);
-            this.setVisible(false);
-    }//GEN-LAST:event_btnAdministradorActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         System.exit(0);
     }//GEN-LAST:event_jButton1ActionPerformed
-   
+
+    private void btnAdminAccederActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminAccederActionPerformed
+        // TODO add your handling code here:
+
+        Administrador administrador = new Administrador();
+
+        String usuario = txtUsuarioAdminAcceder.getText();
+        String password = txtPasswordAdmin.getText();
+
+        //&& (manager.getdAdministrador().getOnePass(password).equals(txtPasswordAdmin.getText()))
+        try {
+            administrador = manager.getdAdministrador().getOne(usuario);
+
+            String contra = administrador.getPassword();
+            String nombre = administrador.getLoginUser();
+            //System.out.println(nombre);
+
+            if (nombre.equals(txtUsuarioAdminAcceder.getText()) && contra.equals(txtPasswordAdmin.getText())) {
+                JOptionPane.showConfirmDialog(null, "Sesión verificada con exito", "Aceptar", JOptionPane.DEFAULT_OPTION);
+                oMantenedorAdmin.setVisible(true);
+                this.setVisible(false);
+            } else {
+                JOptionPane.showConfirmDialog(null, "Rut incorrecto", "Aceptar", JOptionPane.DEFAULT_OPTION);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenedorInicio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnAdminAccederActionPerformed
+
+    private void btnVendedorAccederActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendedorAccederActionPerformed
+        // TODO add your handling code here:
+
+        Empleado empleado = new Empleado();
+
+        String usuario = txtVendedorAccs.getText();
+        String password = txtRutTrabajadorIngresar.getText();
+
+        try {
+            empleado = manager.getdEmpleados().getOne(usuario);
+
+            String contra = empleado.getRutEmpleado();
+            String nombre = empleado.getNombreEmpleado();
+            
+            System.out.println(nombre + contra);
+            
+            String nombreUser = txtVendedorAccs.getText();
+            String rutUser = txtRutTrabajadorIngresar.getText();
+            
+            System.out.println(nombreUser);
+            System.out.println(rutUser);
+
+            if (nombre.equals(nombreUser)) {
+                JOptionPane.showConfirmDialog(null, "Sesión verificada con exito", "Aceptar", JOptionPane.DEFAULT_OPTION);
+                oMantenedorAdmin.setVisible(true);
+                this.setVisible(false);
+            } else {
+                JOptionPane.showConfirmDialog(null, "Rut incorrecto", "Aceptar", JOptionPane.DEFAULT_OPTION);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MantenedorInicio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_btnVendedorAccederActionPerformed
+
+    private void btnVendedorInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendedorInicioActionPerformed
+
+        oMantenedorEmpleado.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnVendedorInicioActionPerformed
+
+    private void btnAdministradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdministradorActionPerformed
+        oMantenedorAdmin.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnAdministradorActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -337,7 +423,7 @@ public class MantenedorInicio extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                
+
                 try {
                     new MantenedorInicio().setVisible(true);
                 } catch (SQLException ex) {
@@ -363,12 +449,9 @@ public class MantenedorInicio extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPasswordField passAdminAcceder;
-    private javax.swing.JPasswordField passVendedorAcceder;
+    private javax.swing.JTextField txtPasswordAdmin;
+    private javax.swing.JFormattedTextField txtRutTrabajadorIngresar;
     private javax.swing.JTextField txtUsuarioAdminAcceder;
-    private javax.swing.JTextField txtUsuarioVendedorAcceder;
+    private javax.swing.JTextField txtVendedorAccs;
     // End of variables declaration//GEN-END:variables
 }
-    
-
-

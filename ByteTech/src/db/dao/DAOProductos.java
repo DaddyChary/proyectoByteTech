@@ -99,4 +99,19 @@ public class DAOProductos implements DAO<Producto> {
         return listaProductos;
     }
     
+    public List<String> getNombreProducto() throws SQLException {
+        String sql = "SELECT DISTINCT nombre_productos  FROM productos ";
+        ResultSet rs = conn.execute(sql);
+        List<String> listaNombreProductos = new ArrayList<>();
+
+        while (rs.next()) {
+
+            String nombreProductos = rs.getString("nombre_productos");
+            listaNombreProductos.add(nombreProductos);
+        }
+        conn.close();
+        return listaNombreProductos;
+    }    
+    
+    
 }

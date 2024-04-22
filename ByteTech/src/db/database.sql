@@ -39,6 +39,8 @@ CREATE TABLE IF NOT EXISTS ventas (
     fecha_venta DATE,
     cantidad_productos_vendidos INT,
     id_producto INT,
+    id_empleado INT,
+    FOREIGN KEY (id_empleado) REFERENCES empleado(id_empleado),
     FOREIGN KEY (id_producto) REFERENCES productos(id_productos)
 );
 

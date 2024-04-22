@@ -12,11 +12,10 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/DaddyChary/Desktop/proyectoByteTech/ByteTech/src/db/dao/DAOEmpleados.java</file>
-            <file>file:/C:/Users/DaddyChary/Desktop/proyectoByteTech/ByteTech/src/db/dao/DAOProductos.java</file>
-            <file>file:/C:/Users/DaddyChary/Desktop/proyectoByteTech/ByteTech/src/app/MantenedorInicio.java</file>
-            <file>file:/C:/Users/DaddyChary/Desktop/proyectoByteTech/ByteTech/src/app/MantenedorEmpleado.java</file>
-            <file>file:/C:/Users/DaddyChary/Desktop/proyectoByteTech/ByteTech/src/app/MantenedorAdministrador.java</file>
+            <file>file:/C:/Users/DaddyChary/Documents/carrera/integracion_competencias_I/proyectoByteTech/ByteTech/src/app/MantenedorEmpleado.java</file>
+            <file>file:/C:/Users/DaddyChary/Documents/carrera/integracion_competencias_I/proyectoByteTech/ByteTech/src/app/MantenedorAdministrador.java</file>
+            <file>file:/C:/Users/DaddyChary/Documents/carrera/integracion_competencias_I/proyectoByteTech/ByteTech/src/db/database.sql</file>
+            <file>file:/C:/Users/DaddyChary/Documents/carrera/integracion_competencias_I/proyectoByteTech/ByteTech/src/db/dao/DAOVentas.java</file>
         </group>
     </open-files>
 </project-private>

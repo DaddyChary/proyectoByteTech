@@ -93,4 +93,20 @@ public class DAOEmpleados implements DAO<Empleado> {
         return listaEmpleados;
     }
 
+        public Empleado getOne(String nombre) throws SQLException {
+        String sql = "SELECT * FROM empleado WHERE nombre_empleado ='" + nombre + "'";
+        ResultSet rs = conn.execute(sql);
+        Empleado empleados = new Empleado();
+        if (rs.next()) {
+            
+            empleados.setIdEmpleado(rs.getInt("id_empleado"));
+            empleados.setNombreEmpleado(rs.getString("nombre_empleado"));
+            empleados.setRutEmpleado(rs.getString("rut_empleado"));
+            empleados.setCargoEmpleado(rs.getString("cargo_empleado"));
+            empleados.setNivelAcceso(rs.getInt("nivel_acceso"));
+        }
+        conn.close();
+        return empleados;
+    }
+    
 }
