@@ -351,20 +351,12 @@ public class MantenedorInicio extends javax.swing.JFrame {
         try {
             empleado = manager.getdEmpleados().getOne(usuario);
 
-            String contra = empleado.getRutEmpleado();
-            String nombre = empleado.getNombreEmpleado();
-            
-            System.out.println(nombre + contra);
-            
-            String nombreUser = txtVendedorAccs.getText();
-            String rutUser = txtRutTrabajadorIngresar.getText();
-            
-            System.out.println(nombreUser);
-            System.out.println(rutUser);
+            String contra = empleado.getRut();
+            String nombre = empleado.getNombre();
 
-            if (nombre.equals(nombreUser)) {
+            if (nombre.equals(txtVendedorAccs.getText()) && contra.equals(txtRutTrabajadorIngresar.getText())) {
                 JOptionPane.showConfirmDialog(null, "Sesión verificada con exito", "Aceptar", JOptionPane.DEFAULT_OPTION);
-                oMantenedorAdmin.setVisible(true);
+                oMantenedorEmpleado.setVisible(true);
                 this.setVisible(false);
             } else {
                 JOptionPane.showConfirmDialog(null, "Rut incorrecto", "Aceptar", JOptionPane.DEFAULT_OPTION);
@@ -377,7 +369,6 @@ public class MantenedorInicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVendedorAccederActionPerformed
 
     private void btnVendedorInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendedorInicioActionPerformed
-
         oMantenedorEmpleado.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnVendedorInicioActionPerformed

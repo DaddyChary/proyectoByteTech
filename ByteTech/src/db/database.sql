@@ -1,14 +1,14 @@
 CREATE DATABASE IF NOT EXISTS ByteTech;
 USE ByteTech;
         
-CREATE TABLE IF NOT EXISTS administrador (
+CREATE TABLE IF NOT EXISTS administradores (
     id_administrador INT AUTO_INCREMENT PRIMARY KEY,
     nombre_administrador VARCHAR(50),
     password VARCHAR(50),
     login_user VARCHAR(50)
 );
 
-CREATE TABLE IF NOT EXISTS empleado (
+CREATE TABLE IF NOT EXISTS empleados (
     id_empleado INT AUTO_INCREMENT PRIMARY KEY,
     nombre_empleado VARCHAR(50),
     rut_empleado VARCHAR(15),
@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS empleado (
 );
 
 CREATE TABLE IF NOT EXISTS proveedores (
-    id_proveedores INT AUTO_INCREMENT PRIMARY KEY,
+    id_proveedor INT AUTO_INCREMENT PRIMARY KEY,
     nombre_proveedor VARCHAR(30),
     rut_proveedor VARCHAR(15),
     correo_proveedor VARCHAR(50),
@@ -25,28 +25,26 @@ CREATE TABLE IF NOT EXISTS proveedores (
 );
 
 CREATE TABLE IF NOT EXISTS productos (
-    id_productos INT AUTO_INCREMENT PRIMARY KEY,
-    nombre_productos VARCHAR(50),
-    cantidad_productos INT,
+    id_producto INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_producto VARCHAR(50),
+    cantidad_producto INT,
     precio_producto INT,
     descripcion_producto VARCHAR(150),
-    id_proveedor INT,
-    FOREIGN KEY (id_proveedor) REFERENCES proveedores(id_proveedores)
+    id_proveedor_fk INT,
+    FOREIGN KEY (id_proveedor_fk) REFERENCES proveedores(id_proveedor)
 );
 
 CREATE TABLE IF NOT EXISTS ventas (
     id_venta INT AUTO_INCREMENT PRIMARY KEY,
     fecha_venta DATE,
-    cantidad_productos_vendidos INT,
-    id_producto INT,
-    id_empleado INT,
-    FOREIGN KEY (id_empleado) REFERENCES empleado(id_empleado),
-    FOREIGN KEY (id_producto) REFERENCES productos(id_productos)
+    id_empleado_fk int,
+    FOREIGN KEY (id_empleado_fk) REFERENCES empleados(id_empleado)
 );
 
-INSERT INTO empleado(nombre_empleado, rut_empleado, cargo_empleado, nivel_acceso)
-VALUES ('Gamaliel', '2144', 'Trabajador', 1);
-
-INSERT INTO administrador(nombre_administrador, password, login_user)
-VALUES ('Luis', '1234', 'lucho');
-
+CREATE TABLE IF NOT EXISTS boletas (
+    id_venta_producto INT AUTO_INCREMENT PRIMARY KEY,
+    id_producto_fk int,
+    id_venta_fk int,
+    FOREIGN KEY (id_producto_fk) REFERENCES productos(id_producto),
+    FOREIGN KEY (id_venta_fk) REFERENCES ventas(id_venta)
+);

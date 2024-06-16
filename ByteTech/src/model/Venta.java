@@ -5,7 +5,9 @@
  */
 package model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /*
  *
@@ -15,74 +17,49 @@ public class Venta {
     
     private int idVentas;
     private Date fechaVentas;
-    private int cantidadProductosVentas;
-    private String nombreProductosVentas;
-    private int precioProductosVentas;
-    private String descripcionProductosVentas;
+    private Empleado empleado ;
+    private List<Producto> lista_productos;
 
     public Venta() {
     }
 
-    public Venta(int idVentas, Date fechaVentas, int cantidadProductosVentas, String nombreProductosVentas, int precioProductosVentas, String descripcionProductosVentas) {
-        this.idVentas = idVentas;
-        this.fechaVentas = fechaVentas;
-        this.cantidadProductosVentas = cantidadProductosVentas;
-        this.nombreProductosVentas = nombreProductosVentas;
-        this.precioProductosVentas = precioProductosVentas;
-        this.descripcionProductosVentas = descripcionProductosVentas;
+    
+    
+    public Venta(Empleado empleado) {
+        this.empleado = empleado;
+        lista_productos = new ArrayList<>();
     }
 
-    public int getIdVentas() {
+    public int getId() {
         return idVentas;
     }
 
-    public void setIdVentas(int idVentas) {
+    public void setId(int idVentas) {
         this.idVentas = idVentas;
     }
 
-    public Date getFechaVentas() {
+    public Date getFecha() {
         return fechaVentas;
     }
 
-    public void setFechaVentas(Date fechaVentas) {
+    public void setFecha(Date fechaVentas) {
         this.fechaVentas = fechaVentas;
     }
-
-    public int getCantidadProductosVentas() {
-        return cantidadProductosVentas;
+    
+    public void addProduct(Producto producto){
+        this.lista_productos.add(producto);
+    }
+    public Producto addProduct(int index){
+        return this.lista_productos.get(index);
     }
 
-    public void setCantidadProductosVentas(int cantidadProductosVentas) {
-        this.cantidadProductosVentas = cantidadProductosVentas;
+    public List<Producto> getListaProductos() {
+        return lista_productos;
     }
 
-    public String getNombreProductosVentas() {
-        return nombreProductosVentas;
+    public void setListaProductos(List<Producto> lista_productos) {
+        this.lista_productos = lista_productos;
     }
 
-    public void setNombreProductosVentas(String nombreProductosVentas) {
-        this.nombreProductosVentas = nombreProductosVentas;
-    }
-
-    public int getPrecioProductosVentas() {
-        return precioProductosVentas;
-    }
-
-    public void setPrecioProductosVentas(int precioProductosVentas) {
-        this.precioProductosVentas = precioProductosVentas;
-    }
-
-    public String getDescripcionProductosVentas() {
-        return descripcionProductosVentas;
-    }
-
-    public void setDescripcionProductosVentas(String descripcionProductosVentas) {
-        this.descripcionProductosVentas = descripcionProductosVentas;
-    }
-
-    @Override
-    public String toString() {
-        return "Ventas{" + "idVentas=" + idVentas + ", fechaVentas=" + fechaVentas + ", cantidadProductosVentas=" + cantidadProductosVentas + ", nombreProductosVentas=" + nombreProductosVentas + ", precioProductosVentas=" + precioProductosVentas + ", descripcionProductosVentas=" + descripcionProductosVentas + '}';
-    }
-
+   
 }

@@ -37,15 +37,15 @@ public class TMProveedore extends AbstractTableModel{
 
         return switch (columnIndex) {
             case 0 ->
-                proveedores.getIdProveedor();
+                proveedores.getId();
             case 1 ->
-                proveedores.getNombreProveedor();
+                proveedores.getNombre();
             case 2 ->
-                proveedores.getRutProveedor();
+                proveedores.getRut();
             case 3 ->
-                proveedores.getCorreoProveedor();
+                proveedores.getCorreo();
             case 4 ->
-                proveedores.getTelefonoProveedor();
+                proveedores.getTelefono();
             default ->
                 "";
         };

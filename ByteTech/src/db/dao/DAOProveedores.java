@@ -26,35 +26,44 @@ public class DAOProveedores implements DAO<Proveedor>{
     @Override
     public void create(Proveedor t) throws SQLException {
         String sql = "INSERT INTO `proveedores` (`nombre_proveedor`, `rut_proveedor`, `correo_proveedor`, `telefono_proveedor`)"+
-                     " VALUES ('" + t.getNombreProveedor()+ " ', '" + t.getRutProveedor()+ "', '" + t.getCorreoProveedor()+ "', '" + t.getTelefonoProveedor()+ "');";
+                     " VALUES ('" + t.getNombre()+ " ', '" + t.getRut()+ "', '" + t.getCorreo()+ "', '" + t.getTelefono()+ "');";
         //System.out.println(sql);
         conn.execute(sql);
     }
 
     @Override
     public void update(Proveedor t) throws SQLException {
-        String sql = "UPDATE `proveedores` SET nombre_proveedor = '" + t.getNombreProveedor()+ " ', rut_proveedor ='" + t.getRutProveedor()+ "', correo_proveedor = '" + t.getCorreoProveedor()+ "', telefono_proveedor = '" + t.getTelefonoProveedor()+ "' WHERE id_proveedores = "+ t.getIdProveedor()+";";
+        String sql = ""
+                + "UPDATE proveedores "
+                + "SET "
+                + "nombre_proveedor = '" + t.getNombre()+ "', "
+                + "rut_proveedor = '" + t.getRut()+ "', "
+                + "correo_proveedor = '" + t.getCorreo()+ "', "
+                + "telefono_proveedor = '" + t.getTelefono()+ "' "
+                + "WHERE id_proveedor = "+ t.getId()+";";
         //System.out.println(sql);
         conn.execute(sql);
     }
 
     @Override
     public void delete(Proveedor t) throws SQLException {
-        String sql = "DELETE FROM proveedores WHERE id_proveedores = "+ t.getIdProveedor()+";";
+        String sql = "DELETE FROM proveedores "
+                + "WHERE id_proveedor = "+ t.getId()+";";
         conn.execute(sql);
     }
 
     @Override
     public Proveedor getOne(int id) throws SQLException {
-        String sql = "SELECT * FROM proveedores WHERE id_proveedores ='" + id + "'";
+        String sql = "SELECT * FROM proveedores "
+                + "WHERE id_proveedor ='" + id + "'";
         ResultSet rs = conn.execute(sql);
         Proveedor proveedor = new Proveedor();
         if (rs.next()) {
-            proveedor.setIdProveedor(rs.getInt("id_proveedores"));
-            proveedor.setNombreProveedor(rs.getString("nombre_proveedor"));
-            proveedor.setRutProveedor(rs.getString("rut_proveedor"));
-            proveedor.setCorreoProveedor(rs.getString("correo_proveedor"));
-            proveedor.setTelefonoProveedor(rs.getString("telefono_proveedor"));
+            proveedor.setId(rs.getInt("id_proveedor"));
+            proveedor.setNombre(rs.getString("nombre_proveedor"));
+            proveedor.setRut(rs.getString("rut_proveedor"));
+            proveedor.setCorreo(rs.getString("correo_proveedor"));
+            proveedor.setTelefono(rs.getString("telefono_proveedor"));
         }
         conn.close();
         return proveedor;
@@ -70,11 +79,11 @@ public class DAOProveedores implements DAO<Proveedor>{
         while (rs.next()) {
             Proveedor proveedores = new Proveedor();
 
-            proveedores.setIdProveedor(rs.getInt("id_proveedores"));
-            proveedores.setNombreProveedor(rs.getString("nombre_proveedor"));
-            proveedores.setRutProveedor(rs.getString("rut_proveedor"));
-            proveedores.setCorreoProveedor(rs.getString("correo_proveedor"));
-            proveedores.setTelefonoProveedor(rs.getString("telefono_proveedor"));
+            proveedores.setId(rs.getInt("id_proveedor"));
+            proveedores.setNombre(rs.getString("nombre_proveedor"));
+            proveedores.setRut(rs.getString("rut_proveedor"));
+            proveedores.setCorreo(rs.getString("correo_proveedor"));
+            proveedores.setTelefono(rs.getString("telefono_proveedor"));
             listaProveedores.add(proveedores);
 
         }
@@ -83,7 +92,7 @@ public class DAOProveedores implements DAO<Proveedor>{
     }
     
     public List<String> getNombreProveedor() throws SQLException {
-        String sql = "SELECT DISTINCT nombre_proveedor  FROM proveedores ";
+        String sql = "SELECT nombre_proveedor  FROM proveedores ";
         ResultSet rs = conn.execute(sql);
         List<String> listaNombreProveedores = new ArrayList<>();
 
@@ -97,12 +106,13 @@ public class DAOProveedores implements DAO<Proveedor>{
     }    
     
     public Proveedor getOneId(String nombre) throws SQLException {
-        String sql = "SELECT id_proveedores FROM proveedores WHERE nombre_proveedor = '" + nombre + "'";
+        String sql = "SELECT id_proveedor FROM proveedores "
+                + "WHERE nombre_proveedor = '" + nombre + "'";
         System.out.println(sql);
         ResultSet rs = conn.execute(sql);
         Proveedor proveedor = new Proveedor();
         if (rs.next()) {
-            proveedor.setIdProveedor(rs.getInt("id_proveedores"));
+            proveedor.setId(rs.getInt("id_proveedor"));
         }
         conn.close();
         return proveedor;

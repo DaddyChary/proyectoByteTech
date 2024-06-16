@@ -11,64 +11,64 @@ package model;
 public class Proveedor {
     
     private int idProveedor;
-    private String nombreProveedor;
-    private String rutProveedor;
-    private String correoProveedor;
-    private String telefonoProveedor;
+    private String nombre;
+    private String rut;
+    private String correo;
+    private String telefono;
 
     public Proveedor() {
     }
 
     public Proveedor(int idProveedor, String nombreProveedor, String rutProveedor, String correoProveedor, String telefonoProveedor) {
         this.idProveedor = idProveedor;
-        this.nombreProveedor = nombreProveedor;
-        this.rutProveedor = rutProveedor;
-        this.correoProveedor = correoProveedor;
-        this.telefonoProveedor = telefonoProveedor;
+        this.nombre = nombreProveedor;
+        this.rut = rutProveedor;
+        this.correo = correoProveedor;
+        this.telefono = telefonoProveedor;
     }
 
-    public int getIdProveedor() {
+    public int getId() {
         return idProveedor;
     }
 
-    public void setIdProveedor(int idProveedor) {
+    public void setId(int idProveedor) {
         this.idProveedor = idProveedor;
     }
 
-    public String getNombreProveedor() {
-        return nombreProveedor;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNombreProveedor(String nombreProveedor) {
-        this.nombreProveedor = nombreProveedor;
+    public void setNombre(String nombreProveedor) {
+        this.nombre = nombreProveedor;
     }
 
-    public String getRutProveedor() {
-        return rutProveedor;
+    public String getRut() {
+        return rut;
     }
 
-    public void setRutProveedor(String rutProveedor) {
-        this.rutProveedor = rutProveedor;
+    public void setRut(String rutProveedor) {
+        this.rut = rutProveedor;
     }
 
-    public String getCorreoProveedor() {
-        return correoProveedor;
+    public String getCorreo() {
+        return correo;
     }
 
-    public void setCorreoProveedor(String correoProveedor) {
-        this.correoProveedor = correoProveedor;
+    public void setCorreo(String correoProveedor) {
+        this.correo = correoProveedor;
     }
 
-    public String getTelefonoProveedor() {
-        return telefonoProveedor;
+    public String getTelefono() {
+        return telefono;
     }
 
-    public void setTelefonoProveedor(String telefonoProveedor) {
-        this.telefonoProveedor = telefonoProveedor;
+    public void setTelefono(String telefonoProveedor) {
+        this.telefono = telefonoProveedor;
     }
 
     @Override
     public String toString() {
-        return "Proveedores{" + "idProveedor=" + idProveedor + ", nombreProveedor=" + nombreProveedor + ", rutProveedor=" + rutProveedor + ", correoProveedor=" + correoProveedor + ", telefonoProveedor=" + telefonoProveedor + '}';
+        return "Proveedores{" + "idProveedor=" + idProveedor + ", nombreProveedor=" + nombre + ", rutProveedor=" + rut + ", correoProveedor=" + correo + ", telefonoProveedor=" + telefono + '}';
     }
 }

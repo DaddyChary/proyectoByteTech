@@ -37,17 +37,11 @@ public class TMVenta extends AbstractTableModel {
 
         return switch (columnIndex) {
             case 0 ->
-                ventas.getIdVentas();
+                ventas.getId();
             case 1 ->
-                ventas.getFechaVentas();
-            case 2 ->
-                ventas.getCantidadProductosVentas();
-            case 3 ->
-                ventas.getNombreProductosVentas();
-            case 4 ->
-                ventas.getPrecioProductosVentas();
-            case 5 ->
-                ventas.getDescripcionProductosVentas();
+                ventas.getFecha();
+//            case 2 ->
+//                ventas.getCantidadProductosVentas();
             default ->
                 "";
         };
@@ -72,5 +66,4 @@ public class TMVenta extends AbstractTableModel {
                 " ";
         };
     }
-    
 }

@@ -40,17 +40,17 @@ public class TMProducto extends AbstractTableModel{
 
         return switch (columnIndex) {
             case 0 ->
-                productos.getIdProducto();
+                productos.getId();
             case 1 ->
-                productos.getNombreProducto();
+                productos.getNombre();
             case 2 ->
-                productos.getCantidadProducto();
+                productos.getCantidad();
             case 3 ->
-                productos.getPrecioProducto();
+                productos.getPrecio();
             case 4 ->
-                productos.getDescripcionProducto();
+                productos.getDescripcion();
             case 5 ->
-                productos.getProveedor().getNombreProveedor();
+                productos.getProveedor().getNombre();
             default ->
                 "";
         };

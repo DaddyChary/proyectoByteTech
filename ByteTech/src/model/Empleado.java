@@ -9,54 +9,58 @@ package model;
  * @author DaddyChary
  */
 public class Empleado {
-    
-    private int idEmpleado;
-    private String nombreEmpleado;
-    private String rutEmpleado;
-    private String cargoEmpleado;
+
+    private int id;
+    private String nombre;
+    private String rut;
+    private String cargo;
     private int nivelAcceso;
 
     public Empleado() {
     }
 
+    public Empleado(int id) {
+        this.id = id;
+    }
+
     public Empleado(int idEmpleado, String nombreEmpleado, String rutEmpleado, String cargoEmpleado, int nivelAcceso) {
-        this.idEmpleado = idEmpleado;
-        this.nombreEmpleado = nombreEmpleado;
-        this.rutEmpleado = rutEmpleado;
-        this.cargoEmpleado = cargoEmpleado;
+        this.id = idEmpleado;
+        this.nombre = nombreEmpleado;
+        this.rut = rutEmpleado;
+        this.cargo = cargoEmpleado;
         this.nivelAcceso = nivelAcceso;
     }
 
-    public int getIdEmpleado() {
-        return idEmpleado;
+    public int getId() {
+        return id;
     }
 
-    public void setIdEmpleado(int idEmpleado) {
-        this.idEmpleado = idEmpleado;
+    public void setId(int idEmpleado) {
+        this.id = idEmpleado;
     }
 
-    public String getNombreEmpleado() {
-        return nombreEmpleado;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNombreEmpleado(String nombreEmpleado) {
-        this.nombreEmpleado = nombreEmpleado;
+    public void setNombre(String nombreEmpleado) {
+        this.nombre = nombreEmpleado;
     }
 
-    public String getRutEmpleado() {
-        return rutEmpleado;
+    public String getRut() {
+        return rut;
     }
 
-    public void setRutEmpleado(String rutEmpleado) {
-        this.rutEmpleado = rutEmpleado;
+    public void setRut(String rutEmpleado) {
+        this.rut = rutEmpleado;
     }
 
-    public String getCargoEmpleado() {
-        return cargoEmpleado;
+    public String getCargo() {
+        return cargo;
     }
 
-    public void setCargoEmpleado(String cargoEmpleado) {
-        this.cargoEmpleado = cargoEmpleado;
+    public void setCargo(String cargoEmpleado) {
+        this.cargo = cargoEmpleado;
     }
 
     public int getNivelAcceso() {
@@ -69,6 +73,6 @@ public class Empleado {
 
     @Override
     public String toString() {
-        return "Empleado{" + "idEmpleado=" + idEmpleado + ", nombreEmpleado=" + nombreEmpleado + ", rutEmpleado=" + rutEmpleado + ", cargoEmpleado=" + cargoEmpleado + ", nivelAcceso=" + nivelAcceso + '}';
+        return "Empleado{" + "idEmpleado=" + id + ", nombreEmpleado=" + nombre + ", rutEmpleado=" + rut + ", cargoEmpleado=" + cargo + ", nivelAcceso=" + nivelAcceso + '}';
     }
 }

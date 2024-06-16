@@ -25,46 +25,67 @@ public class DAOEmpleados implements DAO<Empleado> {
 
     @Override
     public void create(Empleado t) throws SQLException {
-        String sql = "INSERT INTO `empleado` (`nombre_empleado`, `rut_empleado`, `cargo_empleado`, `nivel_acceso`)"+
-                     " VALUES ('" + t.getNombreEmpleado()+ " ', '" + t.getRutEmpleado()+ "', '" + t.getCargoEmpleado()+ "', '" + t.getNivelAcceso()+ "');";
+        String sql = "INSERT INTO `empleados` (`nombre_empleado`, `rut_empleado`, `cargo_empleado`, `nivel_acceso`)"+
+                     " VALUES ('" + t.getNombre()+ " ', '" + t.getRut()+ "', '" + t.getCargo()+ "', '" + t.getNivelAcceso()+ "');";
         //System.out.println(sql);
         conn.execute(sql);
     }
 
     @Override
     public void update(Empleado t) throws SQLException {
-       String sql = "UPDATE `empleado` SET nombre_empleado = '" + t.getNombreEmpleado()+ " ', rut_empleado ='" + t.getRutEmpleado()+ "', cargo_empleado = '" + t.getCargoEmpleado()+ "', nivel_acceso = '" + t.getNivelAcceso()+ "' WHERE id_empleado = "+ t.getIdEmpleado()+";";
+       String sql = "UPDATE `empleados` "
+               + "SET "
+               + "nombre_empleado = '" + t.getNombre()+ " ', "
+               + "rut_empleado ='" + t.getRut()+ "', "
+               + "cargo_empleado = '" + t.getCargo()+ "', "
+               + "nivel_acceso = '" + t.getNivelAcceso()+ "' "
+               + "WHERE id_empleado = "+ t.getId()+";";
+        System.out.println(sql);
         //System.out.println(sql);
         conn.execute(sql);
     }
 
     @Override
     public void delete(Empleado t) throws SQLException {
-        String sql = "DELETE FROM empleado WHERE id_empleado = "+ t.getIdEmpleado()+";";
+        String sql = "DELETE FROM empleados WHERE id_empleado = "+ t.getId()+";";
         conn.execute(sql);
     }
 
     @Override
     public Empleado getOne(int id) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = ""
+                + "SELECT * "
+                + "FROM empleados "
+                + "WHERE id_empleado = " + id;
+        ResultSet rs = conn.execute(sql);
+        Empleado empleado = new Empleado();
+        if(rs.next()){
+            empleado.setId(rs.getInt("id_empleado"));
+            empleado.setNombre(rs.getString("nombre_empleado"));
+            empleado.setRut(rs.getString("rut_empleado"));
+            empleado.setCargo(rs.getString("cargo_empleado"));
+            empleado.setNivelAcceso(rs.getInt("nivel_acceso"));
+        }
+        return empleado;
     }
 
     @Override
     public List<Empleado> getAll() throws SQLException {
-        String sql = "SELECT * FROM empleado;";
+        String sql = "SELECT * FROM empleados;";
         ResultSet rs = conn.execute(sql);
 
         List<Empleado> listaEmpleados = new ArrayList<>();
 
         while (rs.next()) {
-            Empleado empleados = new Empleado();
+            Empleado empleado = new Empleado();
 
-            empleados.setIdEmpleado(rs.getInt("id_empleado"));
-            empleados.setNombreEmpleado(rs.getString("nombre_empleado"));
-            empleados.setRutEmpleado(rs.getString("rut_empleado"));
-            empleados.setCargoEmpleado(rs.getString("cargo_empleado"));
-            empleados.setNivelAcceso(rs.getInt("nivel_acceso"));
-            listaEmpleados.add(empleados);
+            empleado.setId(rs.getInt("id_empleado"));
+            empleado.setNombre(rs.getString("nombre_empleado"));
+            empleado.setRut(rs.getString("rut_empleado"));
+            empleado.setCargo(rs.getString("cargo_empleado"));
+            empleado.setNivelAcceso(rs.getInt("nivel_acceso"));
+            System.out.println(empleado);
+            listaEmpleados.add(empleado);
 
         }
         conn.close();
@@ -72,7 +93,7 @@ public class DAOEmpleados implements DAO<Empleado> {
     }
 
     public List<Empleado> getAll(String dato) throws SQLException {
-        String sql = "SELECT * FROM empleado WHERE nombre_empleado LIKE '%" + dato + "%'";
+        String sql = "SELECT * FROM empleados WHERE nombre_empleado LIKE '%" + dato + "%'";
         //System.out.println(sql);
         ResultSet rs = conn.execute(sql);
 
@@ -82,10 +103,10 @@ public class DAOEmpleados implements DAO<Empleado> {
             Empleado empleados = new Empleado();
             //System.out.println(sql);
 
-            empleados.setIdEmpleado(rs.getInt("id_empleado"));
-            empleados.setNombreEmpleado(rs.getString("nombre_empleado"));
-            empleados.setRutEmpleado(rs.getString("rut_empleado"));
-            empleados.setCargoEmpleado(rs.getString("cargo_empleado"));
+            empleados.setId(rs.getInt("id_empleado"));
+            empleados.setNombre(rs.getString("nombre_empleado"));
+            empleados.setRut(rs.getString("rut_empleado"));
+            empleados.setCargo(rs.getString("cargo_empleado"));
             empleados.setNivelAcceso(rs.getInt("nivel_acceso"));
             listaEmpleados.add(empleados);
         }
@@ -94,15 +115,15 @@ public class DAOEmpleados implements DAO<Empleado> {
     }
 
         public Empleado getOne(String nombre) throws SQLException {
-        String sql = "SELECT * FROM empleado WHERE nombre_empleado ='" + nombre + "'";
+        String sql = "SELECT * FROM empleados WHERE nombre_empleado ='" + nombre + "'";
         ResultSet rs = conn.execute(sql);
         Empleado empleados = new Empleado();
         if (rs.next()) {
             
-            empleados.setIdEmpleado(rs.getInt("id_empleado"));
-            empleados.setNombreEmpleado(rs.getString("nombre_empleado"));
-            empleados.setRutEmpleado(rs.getString("rut_empleado"));
-            empleados.setCargoEmpleado(rs.getString("cargo_empleado"));
+            empleados.setId(rs.getInt("id_empleado"));
+            empleados.setNombre(rs.getString("nombre_empleado"));
+            empleados.setRut(rs.getString("rut_empleado"));
+            empleados.setCargo(rs.getString("cargo_empleado"));
             empleados.setNivelAcceso(rs.getInt("nivel_acceso"));
         }
         conn.close();

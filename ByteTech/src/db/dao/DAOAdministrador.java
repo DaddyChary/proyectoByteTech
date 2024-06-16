@@ -49,7 +49,7 @@ public class DAOAdministrador implements DAO<Administrador> {
     }
 
     public Administrador getOne(String nombre) throws SQLException {
-        String sql = "SELECT * FROM administrador WHERE login_user ='" + nombre + "'";
+        String sql = "SELECT * FROM administradores WHERE login_user ='" + nombre + "'";
         ResultSet rs = conn.execute(sql);
         Administrador administrador = new Administrador();
         if (rs.next()) {

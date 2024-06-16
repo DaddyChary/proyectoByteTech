@@ -12,19 +12,20 @@ import model.Empleado;
  *
  * @author DaddyChary
  */
-public class TMEmpleado extends AbstractTableModel{
-    
-    private List<Empleado> empleadoList;
+public class TMEmpleado extends AbstractTableModel {
 
+    private List<Empleado> empleadoList;
+    
     public TMEmpleado(List<Empleado> productList) {
         this.empleadoList = productList;
     }
-    
+
     @Override
     public int getRowCount() {
         return empleadoList.size();
     }
 
+    
     @Override
     public int getColumnCount() {
         return 5;
@@ -34,16 +35,16 @@ public class TMEmpleado extends AbstractTableModel{
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Empleado empleados = empleadoList.get(rowIndex);
-
+        
         return switch (columnIndex) {
             case 0 ->
-                empleados.getIdEmpleado();
+                empleados.getId();
             case 1 ->
-                empleados.getNombreEmpleado();
+                empleados.getNombre();
             case 2 ->
-                empleados.getRutEmpleado();
+                empleados.getRut();
             case 3 ->
-                empleados.getCargoEmpleado();
+                empleados.getCargo();
             case 4 ->
                 empleados.getNivelAcceso();
             default ->
@@ -63,10 +64,10 @@ public class TMEmpleado extends AbstractTableModel{
             case 3 ->
                 "Cargo";
             case 4 ->
-                "NivelAcceso";                
+                "NivelAcceso";
             default ->
                 " ";
         };
     }
-    
+
 }

@@ -10,11 +10,11 @@ package model;
  */
 public class Producto {
     
-    private int idProducto;
-    private String nombreProducto;
-    private int cantidadProducto;
-    private int precioProducto;
-    private String descripcionProducto;
+    private int id;
+    private String nombre;
+    private int cantidad;
+    private int precio;
+    private String descripcion;
     private Proveedor proveedor;
 
     public Producto() {
@@ -22,60 +22,60 @@ public class Producto {
     }
 
     public Producto(int idProducto, String nombreProducto, int cantidadProducto, int precioProducto, String descripcionProducto) {
-        this.idProducto = idProducto;
-        this.nombreProducto = nombreProducto;
-        this.cantidadProducto = cantidadProducto;
-        this.precioProducto = precioProducto;
-        this.descripcionProducto = descripcionProducto;
+        this.id = idProducto;
+        this.nombre = nombreProducto;
+        this.cantidad = cantidadProducto;
+        this.precio = precioProducto;
+        this.descripcion = descripcionProducto;
     }
 
     public Producto(int idProducto, String nombreProducto, int cantidadProducto, int precioProducto, String descripcionProducto, Proveedor proveedor) {
-        this.idProducto = idProducto;
-        this.nombreProducto = nombreProducto;
-        this.cantidadProducto = cantidadProducto;
-        this.precioProducto = precioProducto;
-        this.descripcionProducto = descripcionProducto;
+        this.id = idProducto;
+        this.nombre = nombreProducto;
+        this.cantidad = cantidadProducto;
+        this.precio = precioProducto;
+        this.descripcion = descripcionProducto;
         this.proveedor = proveedor;
     }
 
-    public int getIdProducto() {
-        return idProducto;
+    public int getId() {
+        return id;
     }
 
-    public void setIdProducto(int idProducto) {
-        this.idProducto = idProducto;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getNombreProducto() {
-        return nombreProducto;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNombreProducto(String nombreProducto) {
-        this.nombreProducto = nombreProducto;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public int getCantidadProducto() {
-        return cantidadProducto;
+    public int getCantidad() {
+        return cantidad;
     }
 
-    public void setCantidadProducto(int cantidadProducto) {
-        this.cantidadProducto = cantidadProducto;
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
     }
 
-    public int getPrecioProducto() {
-        return precioProducto;
+    public int getPrecio() {
+        return precio;
     }
 
-    public void setPrecioProducto(int precioProducto) {
-        this.precioProducto = precioProducto;
+    public void setPrecio(int precio) {
+        this.precio = precio;
     }
 
-    public String getDescripcionProducto() {
-        return descripcionProducto;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setDescripcionProducto(String descripcionProducto) {
-        this.descripcionProducto = descripcionProducto;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public Proveedor getProveedor() {
@@ -86,11 +86,14 @@ public class Producto {
         this.proveedor = proveedor;
     }
 
+    
+    
     @Override
     public String toString() {
-        return "Producto{" + "idProducto=" + idProducto + ", nombreProducto=" + nombreProducto + ", cantidadProducto=" + cantidadProducto + ", precioProducto=" + precioProducto + ", descripcionProducto=" + descripcionProducto + ", proveedor=" + proveedor + '}';
+        return "Producto{" + "id=" + id + ", nombre=" + nombre + ", cantidad=" + cantidad + ", precio=" + precio + ", descripcion=" + descripcion + ", proveedor=" + proveedor + '}';
     }
 
+    
     
 
     

@@ -25,8 +25,8 @@ public class DAOVentas implements DAO<Venta>{
 
     @Override
     public void create(Venta t) throws SQLException {
-        String sql = "INSERT INTO ventas (fecha_venta, cantidad_productos, nombre_producto, precio_producto, descripcion_producto, id_producto) " +
-                       "VALUES ('2024-04-17', 5, 'Nombre del Producto', 100, 'Descripción del Producto', 1)";
+        String sql = "INSERT INTO ventas " +
+                       "VALUES (now())";
         conn.execute(sql);
     }
 
@@ -57,17 +57,12 @@ public class DAOVentas implements DAO<Venta>{
         while (rs.next()) {
             Venta ventas = new Venta();
 
-            ventas.setIdVentas(rs.getInt("IdVentas"));
-            ventas.setFechaVentas(rs.getDate("FechaVentas"));
-            ventas.setCantidadProductosVentas(rs.getInt("Cantidad"));
-            ventas.setNombreProductosVentas(rs.getString("ProductosVentas"));
-            ventas.setPrecioProductosVentas(rs.getInt("ProductosPrecio"));
-            ventas.setDescripcionProductosVentas(rs.getString("Descripcion"));
+            ventas.setId(rs.getInt("IdVentas"));
+            ventas.setFecha(rs.getDate("FechaVentas"));
             listaVentas.add(ventas);
 
         }
         conn.close();
         return listaVentas;
     }
-    
 }
